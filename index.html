@@ -834,17 +834,71 @@ footer span{color:var(--teal2);}
     <div class="sec-title r">📖 문항반응이론이란?</div>
     <div class="g2">
       <div class="r from-left">
-        <span class="label">🔑 정의</span>
-        <p class="body">문항반응이론(Item Response Theory)은 <strong>피험자가 문항에 정반응할 확률을 문항 특성 및 능력의 함수로 기술하는 통계이론</strong>입니다.</p>
-        <p class="body" style="margin-top:.7rem;">고전검사이론처럼 검사 총점에 의해 분석되는 이론이 아니라, <strong>문항 하나하나의 독특한 특성을 지닌 고유한 문항특성곡선(ICC)</strong>에 의해 분석됩니다.</p>
-        <p class="body" style="margin-top:.7rem;">나이가 능력과 항상 비례하는 것이라 할 수 없으므로 나이 대신 <strong>피험자 능력으로 치환한 곡선</strong>을 문항특성곡선이라 합니다.</p>
+        <span class="label">🔑 쉽게 말하면</span>
+        <p class="body"><strong>"각 시험 문제마다 고유한 성격이 있고, 그 성격에 맞게 학생의 진짜 실력을 계산하는 이론"</strong>입니다.</p>
+        <p class="body" style="margin-top:.8rem;">고전검사이론은 <strong>몇 개 맞았냐(총점)</strong>만 봤다면, 문항반응이론은 <strong>어떤 문제를 맞았냐</strong>까지 봅니다.</p>
+
+        <div class="info-box" style="margin-top:1rem;">
+          <strong>📝 예시로 이해하기</strong><br><br>
+          두 학생이 모두 80점을 받았습니다.<br><br>
+          👦 <strong>학생 A</strong> — 쉬운 문제 10개를 골라 맞힌 경우<br>
+          👧 <strong>학생 B</strong> — 아무도 못 푼 킬러 문항 8개를 맞힌 경우<br><br>
+          총점은 같지만 실력은 분명히 다릅니다.<br>
+          문항반응이론은 이 차이를 구분해냅니다.
+        </div>
       </div>
+
       <div class="r from-right">
-        <div class="scale-box">
-          <span class="icon">📈</span>
-          <p><strong>문항특성곡선(ICC)이란?</strong></p>
-          <p style="margin-top:.6rem;">피험자의 능력(θ)과 문항에 정답할 확률(P) 사이의 관계를 S자형 곡선으로 나타낸 것입니다.</p>
-          <p style="margin-top:.6rem;">능력이 높을수록 정답 확률이 높아지며, 각 문항마다 고유한 곡선 형태를 가집니다.</p>
+        <span class="label">📈 문항특성곡선(ICC)이란?</span>
+        <div class="card" style="margin-bottom:.8rem;">
+          <p class="body" style="font-size:.85rem;"><strong>실력이 올라갈수록 정답 확률도 올라간다</strong>는 당연한 사실을 곡선으로 나타낸 것입니다.</p>
+          <p class="body" style="font-size:.85rem;margin-top:.5rem;">그리고 <strong>문항마다 이 곡선의 모양이 다릅니다.</strong></p>
+        </div>
+
+        <!-- SVG ICC 시각화 -->
+        <div style="background:linear-gradient(135deg,#edfcfe,#f0f0ff);border-radius:14px;padding:1rem;border:1px solid rgba(14,165,176,.2);">
+          <svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+            <!-- 배경 -->
+            <rect width="280" height="160" rx="8" fill="none"/>
+            <!-- 격자선 -->
+            <line x1="35" y1="20"  x2="35"  y2="130" stroke="#cbe8ed" stroke-width="1"/>
+            <line x1="35" y1="130" x2="265" y2="130" stroke="#cbe8ed" stroke-width="1"/>
+            <line x1="35" y1="75"  x2="265" y2="75"  stroke="#e0f0f2" stroke-width="1" stroke-dasharray="3,3"/>
+            <line x1="35" y1="42"  x2="265" y2="42"  stroke="#ffe5b0" stroke-width="1" stroke-dasharray="3,3"/>
+
+            <!-- Y축 라벨 -->
+            <text x="30" y="133" text-anchor="end" font-size="8" fill="#5a7a96">0%</text>
+            <text x="30" y="78"  text-anchor="end" font-size="8" fill="#5a7a96">50%</text>
+            <text x="30" y="45"  text-anchor="end" font-size="8" fill="#c08000">75%</text>
+            <text x="30" y="23"  text-anchor="end" font-size="8" fill="#5a7a96">100%</text>
+
+            <!-- X축 라벨 -->
+            <text x="60"  y="143" text-anchor="middle" font-size="8" fill="#5a7a96">낮음</text>
+            <text x="150" y="143" text-anchor="middle" font-size="8" fill="#5a7a96">보통</text>
+            <text x="240" y="143" text-anchor="middle" font-size="8" fill="#5a7a96">높음</text>
+            <text x="150" y="155" text-anchor="middle" font-size="8.5" fill="#0a6e7c" font-weight="bold">← 학생 실력 →</text>
+
+            <!-- 쉬운 문항 곡선 (teal) -->
+            <path d="M40,128 Q65,126 80,112 Q95,92 108,65 Q118,42 135,25 Q148,15 165,13" stroke="#0ea5b0" stroke-width="2.5" fill="none"/>
+            <text x="168" y="13" font-size="8" fill="#0ea5b0" font-weight="bold">쉬운 문항</text>
+            <text x="168" y="22" font-size="7" fill="#0ea5b0">(일찍 상승)</text>
+
+            <!-- 어려운 문항 곡선 (purple) -->
+            <path d="M80,128 Q105,127 125,118 Q145,105 160,85 Q172,65 185,45 Q195,30 215,18" stroke="#845ef7" stroke-width="2.5" fill="none"/>
+            <text x="218" y="18" font-size="8" fill="#845ef7" font-weight="bold">어려운 문항</text>
+            <text x="218" y="27" font-size="7" fill="#845ef7">(늦게 상승)</text>
+
+            <!-- 75% 기준선 라벨 -->
+            <rect x="36" y="34" width="52" height="13" rx="3" fill="#fff9e0"/>
+            <text x="62" y="43" text-anchor="middle" font-size="7.5" fill="#c08000" font-weight="bold">정답률 75%</text>
+
+            <!-- 점 표시 -->
+            <circle cx="128" cy="42" r="3.5" fill="#0ea5b0"/>
+            <circle cx="188" cy="42" r="3.5" fill="#845ef7"/>
+            <line x1="128" y1="42" x2="128" y2="130" stroke="#0ea5b0" stroke-width="1" stroke-dasharray="2,2" opacity=".5"/>
+            <line x1="188" y1="42" x2="188" y2="130" stroke="#845ef7" stroke-width="1" stroke-dasharray="2,2" opacity=".5"/>
+          </svg>
+          <p style="font-size:.74rem;color:var(--soft);text-align:center;margin-top:.3rem;">같은 75% 정답률 지점이라도 쉬운 문항은 낮은 실력에서, 어려운 문항은 높은 실력에서 달성됩니다</p>
         </div>
       </div>
     </div>
