@@ -6,236 +6,422 @@
 <title>제10장 문항분석</title>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Round+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --teal:#0ea5b0;--teal2:#06d6a0;--coral:#ff6b6b;--yellow:#ffd166;
-    --purple:#845ef7;--navy:#1e3a5f;--bg:#f0fafc;--white:#fff;
-    --text:#1e3a5f;--soft:#5a7a96;--border:#cbe8ed;--card:#fff;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{font-family:'Nanum Round Gothic',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+/* ══════════════════════════════════════════
+   ROOT & RESET
+══════════════════════════════════════════ */
+:root{
+  --teal:#0ea5b0;--teal2:#06d6a0;--coral:#ff6b6b;--yellow:#ffd166;
+  --purple:#845ef7;--navy:#1e3a5f;--bg:#f0fafc;--white:#fff;
+  --text:#1e3a5f;--soft:#5a7a96;--border:#cbe8ed;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Nanum Round Gothic',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;}
 
-  /* NAV */
-  nav{position:fixed;top:0;left:0;right:0;z-index:200;height:54px;background:rgba(255,255,255,.93);backdrop-filter:blur(14px);display:flex;align-items:center;padding:0 2rem;gap:2rem;border-bottom:2px solid var(--teal);box-shadow:0 2px 16px rgba(14,165,176,.1);}
-  .nav-logo{color:var(--teal);font-size:.85rem;font-weight:800;margin-right:auto;}
-  .nav-links{display:flex;gap:1.6rem;}
-  .nav-links a{color:var(--soft);text-decoration:none;font-size:.78rem;font-weight:700;transition:color .2s;}
-  .nav-links a:hover{color:var(--teal);}
+/* ══════════════════════════════════════════
+   MOBILE HAMBURGER NAV
+══════════════════════════════════════════ */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;height:54px;
+  background:rgba(255,255,255,.95);backdrop-filter:blur(14px);
+  display:flex;align-items:center;padding:0 1.2rem;
+  border-bottom:2px solid var(--teal);box-shadow:0 2px 16px rgba(14,165,176,.1);}
+.nav-logo{color:var(--teal);font-size:.82rem;font-weight:800;margin-right:auto;}
+.nav-links{display:flex;gap:1.4rem;}
+.nav-links a{color:var(--soft);text-decoration:none;font-size:.76rem;font-weight:700;transition:color .2s;}
+.nav-links a:hover{color:var(--teal);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.4rem;background:none;border:none;}
+.hamburger span{width:22px;height:2px;background:var(--teal);border-radius:2px;transition:all .3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;top:54px;left:0;right:0;z-index:299;
+  background:rgba(255,255,255,.98);border-bottom:2px solid var(--teal);
+  flex-direction:column;padding:1rem 1.5rem;gap:.8rem;
+  box-shadow:0 8px 24px rgba(14,165,176,.12);}
+.mobile-menu a{color:var(--navy);text-decoration:none;font-size:.9rem;font-weight:700;
+  padding:.6rem 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.5rem;}
+.mobile-menu.open{display:flex;}
+@media(max-width:640px){
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+}
 
-  /* HERO */
-  .hero{min-height:100vh;background:linear-gradient(135deg,#0ea5b0 0%,#0d7ea8 40%,#845ef7 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;padding:80px 2rem 4rem;text-align:center;position:relative;overflow:hidden;}
-  .hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/svg%3E");}
-  .hero-blob{position:absolute;border-radius:50%;background:rgba(255,255,255,.07);animation:blob 6s ease-in-out infinite;}
-  .hero-blob:nth-child(1){width:400px;height:400px;top:50%;left:50%;transform:translate(-50%,-50%);}
-  .hero-blob:nth-child(2){width:250px;height:250px;top:10%;right:8%;animation-delay:2s;}
-  .hero-blob:nth-child(3){width:180px;height:180px;bottom:15%;left:10%;animation-delay:4s;}
-  @keyframes blob{0%,100%{transform:scale(1) translate(0,0);}50%{transform:scale(1.08) translate(10px,-10px);}}
-  .hero-tag{display:inline-block;background:rgba(255,255,255,.2);color:white;font-size:.72rem;font-weight:800;letter-spacing:.18em;padding:.35rem 1rem;border-radius:99px;margin-bottom:1.8rem;border:1px solid rgba(255,255,255,.35);opacity:0;animation:up .7s ease .2s forwards;}
-  .hero h1{font-size:clamp(2.6rem,6vw,5rem);font-weight:800;color:white;line-height:1.15;letter-spacing:-.02em;opacity:0;animation:up .7s ease .35s forwards;position:relative;z-index:1;}
-  .hero h1 em{color:var(--yellow);font-style:normal;}
-  .hero-line{width:48px;height:3px;background:var(--yellow);margin:1.8rem auto;border-radius:2px;opacity:0;animation:up .7s ease .45s forwards;}
-  .hero-sub{color:rgba(255,255,255,.8);font-size:.95rem;max-width:420px;opacity:0;animation:up .7s ease .55s forwards;position:relative;z-index:1;}
-  .toc{display:flex;gap:1rem;margin-top:3rem;opacity:0;animation:up .7s ease .7s forwards;position:relative;z-index:1;flex-wrap:wrap;justify-content:center;}
-  .toc-item{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);border-radius:16px;padding:1.3rem 1.5rem;width:155px;text-align:left;text-decoration:none;transition:all .25s;backdrop-filter:blur(6px);}
-  .toc-item:hover{background:rgba(255,255,255,.28);transform:translateY(-4px);}
-  .toc-item .n{color:var(--yellow);font-size:1.2rem;font-weight:800;display:block;margin-bottom:.3rem;}
-  .toc-item .t{color:white;font-size:.88rem;font-weight:700;}
-  @keyframes up{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+/* ══════════════════════════════════════════
+   ANIMATIONS
+══════════════════════════════════════════ */
+@keyframes up{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
+@keyframes blob{0%,100%{transform:scale(1);}50%{transform:scale(1.08) translate(8px,-8px);}}
+@keyframes countUp{from{opacity:0;transform:scale(.7);}to{opacity:1;transform:scale(1);}}
+@keyframes shimmer{0%{background-position:-200% 0;}100%{background-position:200% 0;}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(14,165,176,.4);}50%{box-shadow:0 0 0 8px rgba(14,165,176,0);}}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes barGrow{from{width:0;}to{width:var(--w);}}
+@keyframes popIn{0%{transform:scale(0) rotate(-10deg);opacity:0;}80%{transform:scale(1.1) rotate(2deg);}100%{transform:scale(1) rotate(0deg);opacity:1;}}
+@keyframes ripple{0%{transform:scale(0);opacity:.6;}100%{transform:scale(4);opacity:0;}}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes glow{0%,100%{text-shadow:0 0 8px rgba(14,165,176,.4);}50%{text-shadow:0 0 20px rgba(14,165,176,.8),0 0 40px rgba(6,214,160,.3);}}
 
-  /* PART DIVIDERS */
-  .part{padding:4rem 2rem;text-align:center;}
-  .part.p1{background:linear-gradient(135deg,#0ea5b0,#06d6a0);}
-  .part.p2{background:linear-gradient(135deg,#0ea5b0,#0d7ea8);}
-  .part.p3{background:linear-gradient(135deg,#845ef7,#c678f5);}
-  .part h2{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;color:white;letter-spacing:-.01em;}
-  .part p{margin-top:.5rem;font-size:.9rem;font-weight:700;color:rgba(255,255,255,.65);}
+/* ══════════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════════ */
+.r{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease;}
+.r.in{opacity:1;transform:none;}
+.r.from-left{opacity:0;transform:translateX(-30px);transition:opacity .65s ease,transform .65s ease;}
+.r.from-left.in{opacity:1;transform:none;}
+.r.from-right{opacity:0;transform:translateX(30px);transition:opacity .65s ease,transform .65s ease;}
+.r.from-right.in{opacity:1;transform:none;}
+.r.scale-in{opacity:0;transform:scale(.85);transition:opacity .55s ease,transform .55s ease;}
+.r.scale-in.in{opacity:1;transform:scale(1);}
 
-  /* SECTIONS */
-  .sec{padding:5rem 2rem;}
-  .sec.alt{background:white;}
-  .sec.dark{background:var(--navy);}
-  .wrap{max-width:960px;margin:0 auto;}
-  .sec-title{font-size:clamp(1.15rem,2vw,1.65rem);font-weight:800;color:var(--navy);padding-bottom:.6rem;display:inline-flex;align-items:center;gap:.5rem;margin-bottom:2rem;letter-spacing:-.01em;border-bottom:3px solid var(--teal);}
-  .sec.dark .sec-title{color:white;border-color:var(--yellow);}
+/* ══════════════════════════════════════════
+   HERO
+══════════════════════════════════════════ */
+.hero{min-height:100vh;background:linear-gradient(135deg,#0ea5b0 0%,#0d7ea8 40%,#845ef7 100%);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  padding:80px 1.5rem 4rem;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/svg%3E");}
+.hero-blob{position:absolute;border-radius:50%;background:rgba(255,255,255,.07);animation:blob 6s ease-in-out infinite;}
+.hero-blob:nth-child(1){width:400px;height:400px;top:50%;left:50%;transform:translate(-50%,-50%);}
+.hero-blob:nth-child(2){width:250px;height:250px;top:8%;right:6%;animation-delay:2s;}
+.hero-blob:nth-child(3){width:180px;height:180px;bottom:12%;left:8%;animation-delay:4s;}
+.hero-tag{display:inline-block;background:rgba(255,255,255,.2);color:white;font-size:.72rem;font-weight:800;
+  letter-spacing:.18em;padding:.35rem 1rem;border-radius:99px;margin-bottom:1.8rem;
+  border:1px solid rgba(255,255,255,.35);opacity:0;animation:up .7s ease .2s forwards;position:relative;z-index:1;}
+.hero h1{font-size:clamp(2.8rem,8vw,5.5rem);font-weight:800;color:white;line-height:1.1;
+  letter-spacing:-.02em;opacity:0;animation:up .7s ease .35s forwards;position:relative;z-index:1;}
+.hero h1 em{color:var(--yellow);font-style:normal;animation:glow 3s ease-in-out 1.2s infinite;}
+.hero-line{width:48px;height:3px;background:var(--yellow);margin:1.8rem auto;border-radius:2px;
+  opacity:0;animation:up .7s ease .45s forwards;}
+.hero-sub{color:rgba(255,255,255,.8);font-size:.95rem;max-width:380px;
+  opacity:0;animation:up .7s ease .55s forwards;position:relative;z-index:1;}
+.toc{display:flex;gap:.8rem;margin-top:2.8rem;opacity:0;animation:up .7s ease .7s forwards;
+  position:relative;z-index:1;flex-wrap:wrap;justify-content:center;}
+.toc-item{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);
+  border-radius:14px;padding:1.1rem 1.3rem;min-width:130px;text-align:left;
+  text-decoration:none;transition:all .3s;backdrop-filter:blur(6px);}
+.toc-item:hover{background:rgba(255,255,255,.28);transform:translateY(-5px) scale(1.03);}
+.toc-item .n{color:var(--yellow);font-size:1.1rem;font-weight:800;display:block;margin-bottom:.25rem;}
+.toc-item .t{color:white;font-size:.84rem;font-weight:700;}
+/* scroll hint */
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  color:rgba(255,255,255,.5);font-size:.72rem;font-weight:700;letter-spacing:.1em;
+  display:flex;flex-direction:column;align-items:center;gap:.4rem;z-index:1;
+  opacity:0;animation:up .7s ease 1.2s forwards;}
+.scroll-hint .arr{animation:bounce 1.5s ease-in-out infinite;font-size:1.2rem;}
 
-  /* GRID */
-  .g2{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start;}
-  .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;}
-  @media(max-width:680px){.g2,.g3{grid-template-columns:1fr;}.toc{flex-direction:column;align-items:center;}}
+/* ══════════════════════════════════════════
+   PART DIVIDERS
+══════════════════════════════════════════ */
+.part{padding:3.5rem 1.5rem;text-align:center;position:relative;overflow:hidden;}
+.part.p1{background:linear-gradient(135deg,#0ea5b0,#06d6a0);}
+.part.p2{background:linear-gradient(135deg,#0ea5b0,#0d7ea8);}
+.part.p3{background:linear-gradient(135deg,#845ef7,#c678f5);}
+.part h2{font-size:clamp(1.6rem,4vw,2.5rem);font-weight:800;color:white;letter-spacing:-.01em;}
+.part p{margin-top:.5rem;font-size:.88rem;font-weight:700;color:rgba(255,255,255,.65);}
+.part-num{position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);
+  font-size:clamp(4rem,12vw,8rem);font-weight:800;color:rgba(255,255,255,.06);line-height:1;}
 
-  /* TYPOGRAPHY */
-  .label{font-size:.7rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:.5rem;}
-  .body{font-size:.9rem;line-height:1.85;color:var(--soft);}
-  .sec.dark .body{color:rgba(255,255,255,.65);}
-  strong{color:var(--navy);font-weight:800;}
-  .sec.dark strong{color:white;}
+/* ══════════════════════════════════════════
+   SECTIONS
+══════════════════════════════════════════ */
+.sec{padding:4rem 1.5rem;}
+.sec.alt{background:white;}
+.sec.dark{background:var(--navy);}
+.wrap{max-width:960px;margin:0 auto;}
+.sec-title{font-size:clamp(1.1rem,2.2vw,1.6rem);font-weight:800;color:var(--navy);
+  padding-bottom:.55rem;display:inline-flex;align-items:center;gap:.45rem;
+  margin-bottom:1.8rem;letter-spacing:-.01em;border-bottom:3px solid var(--teal);}
+.sec.dark .sec-title{color:white;border-color:var(--yellow);}
 
-  /* CARDS */
-  .card{background:var(--card);border-radius:16px;padding:1.5rem;border:1.5px solid var(--border);}
-  .card h4{font-size:.9rem;font-weight:800;color:var(--navy);margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem;}
-  .pill{background:linear-gradient(135deg,rgba(14,165,176,.07),rgba(132,94,247,.07));border:1.5px solid rgba(14,165,176,.25);border-radius:16px;padding:1.5rem 1.6rem;font-size:.88rem;line-height:1.85;text-align:center;}
-  .info-box{background:linear-gradient(135deg,rgba(14,165,176,.08),rgba(6,214,160,.08));border-left:3px solid var(--teal2);border-radius:0 12px 12px 0;padding:1rem 1.2rem;margin-top:1rem;font-size:.85rem;line-height:1.8;color:var(--soft);}
-  .info-box strong{color:var(--navy);}
-  .alert{border-radius:12px;padding:1rem 1.2rem;margin-top:1rem;font-size:.82rem;line-height:1.8;}
-  .alert.red{background:#fff0f0;border:1.5px solid #ffb3b3;color:#8b1a1a;}
-  .alert.amber{background:#fffbee;border:1.5px solid #ffd580;color:#7a4800;}
+/* ══════════════════════════════════════════
+   GRID — MOBILE FIRST
+══════════════════════════════════════════ */
+.g2{display:grid;grid-template-columns:1fr;gap:1.8rem;align-items:start;}
+.g3{display:grid;grid-template-columns:1fr;gap:1rem;}
+@media(min-width:640px){
+  .g2{grid-template-columns:1fr 1fr;gap:2rem;}
+  .g3{grid-template-columns:repeat(3,1fr);gap:1.1rem;}
+}
 
-  /* FORMULA */
-  .formula-wrap{background:linear-gradient(135deg,#edfcfe,#f0f0ff);border-radius:14px;padding:1.4rem 1.6rem;text-align:center;margin:1.2rem 0;border:1px solid rgba(14,165,176,.2);}
-  .formula-wrap .notes{margin-top:.8rem;font-size:.76rem;color:var(--soft);text-align:left;line-height:1.7;}
-  /* fraction */
-  .frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .15em;}
-  .frac .num{border-bottom:2px solid var(--navy);padding-bottom:.1em;font-weight:800;font-size:.95em;}
-  .frac .den{padding-top:.1em;font-weight:800;font-size:.95em;}
-  .eq-line{font-size:1rem;font-weight:800;color:var(--navy);line-height:1.9;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:.25em;}
+/* ══════════════════════════════════════════
+   TYPOGRAPHY
+══════════════════════════════════════════ */
+.label{font-size:.68rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--teal);display:block;margin-bottom:.5rem;}
+.body{font-size:.88rem;line-height:1.88;color:var(--soft);}
+.sec.dark .body{color:rgba(255,255,255,.65);}
+strong{color:var(--navy);font-weight:800;}
+.sec.dark strong{color:white;}
 
-  /* TABLE */
-  table{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:1rem;}
-  th{background:var(--teal);color:white;padding:.6rem .8rem;text-align:center;font-weight:700;font-size:.76rem;}
-  td{padding:.52rem .8rem;text-align:center;border-bottom:1px solid var(--border);color:var(--text);}
-  tr:nth-child(even) td{background:rgba(14,165,176,.04);}
-  .td-g{color:#0a7a60;font-weight:800;}
-  .td-b{color:#1255a0;font-weight:800;}
-  .td-r{color:#c03020;font-weight:800;}
-  .tr-s td{font-weight:800;background:rgba(14,165,176,.08)!important;color:var(--teal);}
+/* ══════════════════════════════════════════
+   CARDS & BOXES
+══════════════════════════════════════════ */
+.pill{background:linear-gradient(135deg,rgba(14,165,176,.07),rgba(132,94,247,.07));
+  border:1.5px solid rgba(14,165,176,.25);border-radius:16px;
+  padding:1.4rem 1.5rem;font-size:.87rem;line-height:1.88;text-align:center;
+  transition:transform .25s,box-shadow .25s;}
+.pill:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(14,165,176,.12);}
+.info-box{background:linear-gradient(135deg,rgba(14,165,176,.08),rgba(6,214,160,.08));
+  border-left:3px solid var(--teal2);border-radius:0 12px 12px 0;
+  padding:1rem 1.2rem;margin-top:1rem;font-size:.84rem;line-height:1.8;color:var(--soft);}
+.info-box strong{color:var(--navy);}
+.alert{border-radius:12px;padding:1rem 1.2rem;margin-top:1rem;font-size:.82rem;line-height:1.8;}
+.alert.red{background:#fff0f0;border:1.5px solid #ffb3b3;color:#8b1a1a;}
+.alert.amber{background:#fffbee;border:1.5px solid #ffd580;color:#7a4800;}
 
-  /* HIGHLIGHT matching colors */
-  .hl-pink{background:#ffe0ec;color:#b02060;border-radius:4px;padding:0 .25em;font-weight:800;}
-  .hl-blue{background:#dceeff;color:#1255a0;border-radius:4px;padding:0 .25em;font-weight:800;}
-  .hl-red{background:#ffe0dc;color:#c03020;border-radius:4px;padding:0 .25em;font-weight:800;}
-  .hl-green{background:#dafff0;color:#0a7a60;border-radius:4px;padding:0 .25em;font-weight:800;}
+/* ══════════════════════════════════════════
+   FORMULA
+══════════════════════════════════════════ */
+.formula-wrap{background:linear-gradient(135deg,#edfcfe,#f0f0ff);border-radius:14px;
+  padding:1.2rem 1.4rem;text-align:center;margin:1.1rem 0;
+  border:1px solid rgba(14,165,176,.2);overflow-x:auto;}
+.formula-wrap .notes{margin-top:.7rem;font-size:.74rem;color:var(--soft);line-height:1.7;text-align:center;}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .12em;}
+.frac .num{border-bottom:2px solid var(--navy);padding-bottom:.08em;font-weight:800;font-size:.9em;white-space:nowrap;}
+.frac .den{padding-top:.08em;font-weight:800;font-size:.9em;white-space:nowrap;}
+.eq-line{font-size:.95rem;font-weight:800;color:var(--navy);line-height:2;
+  display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:.2em;}
 
-  /* click-to-highlight rows */
-  .match-row{cursor:pointer;transition:background .2s;}
-  .match-row:hover td,.match-row.active td{background:rgba(14,165,176,.13)!important;}
+/* ══════════════════════════════════════════
+   HIGHLIGHT COLORS
+══════════════════════════════════════════ */
+.hl-pink{background:#ffe0ec;color:#b02060;border-radius:4px;padding:0 .22em;font-weight:800;}
+.hl-blue{background:#dceeff;color:#1255a0;border-radius:4px;padding:0 .22em;font-weight:800;}
+.hl-green{background:#dafff0;color:#0a7a60;border-radius:4px;padding:0 .22em;font-weight:800;}
 
-  /* BARS */
-  .bar-row{display:flex;align-items:center;gap:.8rem;margin:.7rem 0;}
-  .bar-name{font-size:.8rem;font-weight:800;width:120px;flex-shrink:0;color:var(--navy);}
-  .bar-bg{flex:1;height:30px;background:#e4f4f6;border-radius:8px;overflow:hidden;position:relative;}
-  .bar-fill{height:100%;border-radius:8px;display:flex;align-items:center;padding-right:.7rem;font-size:.78rem;font-weight:800;color:white;transition:width 1s ease;justify-content:flex-end;}
-  .fill-teal{background:linear-gradient(90deg,var(--teal),var(--teal2));}
-  .fill-yellow{background:linear-gradient(90deg,#f4a020,var(--yellow));color:var(--navy);}
-  .fill-coral{background:linear-gradient(90deg,var(--coral),#ff9f9f);}
-  .bar-hint{font-size:.76rem;color:var(--soft);width:185px;flex-shrink:0;}
+/* ══════════════════════════════════════════
+   TABLE
+══════════════════════════════════════════ */
+table{width:100%;border-collapse:collapse;font-size:.78rem;margin-top:.8rem;}
+th{background:var(--teal);color:white;padding:.55rem .6rem;text-align:center;font-weight:700;font-size:.72rem;}
+td{padding:.48rem .6rem;text-align:center;border-bottom:1px solid var(--border);color:var(--text);transition:background .2s;}
+tr:nth-child(even) td{background:rgba(14,165,176,.04);}
+.td-g{color:#0a7a60;font-weight:800;}
+.td-b{color:#1255a0;font-weight:800;}
+.td-r{color:#c03020;font-weight:800;}
+.tr-s td{font-weight:800;background:rgba(14,165,176,.08)!important;color:var(--teal);}
 
-  /* DISTRACTOR */
-  .dist-row{display:flex;align-items:center;gap:.75rem;padding:.7rem 1rem;border-radius:12px;background:var(--bg);border:1.5px solid var(--border);margin-bottom:.55rem;transition:border-color .2s;}
-  .dist-row:hover{border-color:var(--teal);}
-  .dist-num{width:26px;height:26px;border-radius:50%;background:#d9f0f3;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;flex-shrink:0;}
-  .dist-num.ans{background:linear-gradient(135deg,var(--teal),var(--teal2));color:white;}
-  .dist-num.hot{background:linear-gradient(135deg,#f4a020,var(--yellow));color:white;}
-  .dist-pct{font-size:.82rem;font-weight:800;width:32px;flex-shrink:0;}
-  .dist-bar-bg{flex:1;height:8px;background:#d9f0f3;border-radius:4px;overflow:hidden;}
-  .dist-bar-fill{height:100%;border-radius:4px;background:#9ecdd6;}
-  .dist-bar-fill.ans{background:linear-gradient(90deg,var(--teal),var(--teal2));}
-  .dist-bar-fill.hot{background:linear-gradient(90deg,#f4a020,var(--yellow));}
-  .dist-note{font-size:.75rem;color:var(--soft);width:155px;flex-shrink:0;}
+/* col-header hover/active */
+.col-header{cursor:pointer;transition:background .15s,transform .15s;user-select:none;}
+.col-header:hover{background:#0dd4e0!important;}
+.col-header.selected{background:#06b6d4!important;box-shadow:inset 0 -3px 0 var(--yellow);}
 
-  /* PROFILE BUBBLES */
-  .bubbles{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:560px;margin:0 auto;}
-  .bub{border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;font-size:.82rem;font-weight:700;padding:.5rem;transition:all .22s;cursor:default;line-height:1.35;flex-direction:column;gap:.2rem;aspect-ratio:1;width:100%;max-width:160px;justify-self:center;}
-  .bub .icon{font-size:1.4rem;}
-  .bub-1{background:#fff0f5;border:2px solid #ffb3c6;color:#c0496a;}
-  .bub-2{background:#f0fff4;border:2px solid #6bda9c;color:#1a7a4a;}
-  .bub-3{background:#fefce8;border:2px solid #ffd166;color:#8a6a00;}
-  .bub-4{background:#f0f9ff;border:2px solid #7dd3fc;color:#0369a1;}
-  .bub-5{background:#f5f3ff;border:2px solid #c4b5fd;color:#5b21b6;}
-  .bub-6{background:#fff7ed;border:2px solid #fdba74;color:#c2410c;}
-  .bub:hover{transform:scale(1.08);filter:brightness(.95);}
+/* ══════════════════════════════════════════
+   STEP CALC (animated)
+══════════════════════════════════════════ */
+.step-calc{background:linear-gradient(135deg,#edfcfe,#f0f0ff);border-radius:12px;
+  padding:1.2rem;font-size:.83rem;line-height:1.9;color:var(--soft);
+  margin-top:1rem;border:1px solid rgba(14,165,176,.2);overflow-x:auto;}
+.step-calc p{margin-bottom:.4rem;}
+.step-calc .result{font-size:1.15rem;font-weight:800;color:var(--teal);margin-top:.8rem;
+  animation:countUp .4s ease;}
+.step-badge{display:inline-block;background:linear-gradient(135deg,var(--teal),var(--teal2));
+  color:white;border-radius:8px;padding:.4rem .9rem;font-size:.79rem;font-weight:800;
+  margin-top:.6rem;animation:pulse 2s infinite;}
+.calc-updating{animation:shimmer 1s linear;
+  background:linear-gradient(90deg,#edfcfe 25%,#c8f5f8 50%,#edfcfe 75%);
+  background-size:200% 100%;}
 
-  /* LIMIT CARDS */
-  .limit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1.5rem;}
-  @media(max-width:700px){.limit-grid{grid-template-columns:1fr;}}
-  .limit-card{background:rgba(255,255,255,.08);border-radius:14px;padding:1.4rem;border-top:3px solid var(--yellow);}
-  .limit-card h4{color:white;font-size:.88rem;font-weight:800;margin-bottom:.6rem;display:flex;align-items:center;gap:.4rem;}
-  .limit-card ul{list-style:none;padding:0;}
-  .limit-card li{font-size:.82rem;color:rgba(255,255,255,.6);padding:.22rem 0 .22rem 1rem;position:relative;line-height:1.65;}
-  .limit-card li::before{content:'–';position:absolute;left:0;color:var(--yellow);}
+/* ══════════════════════════════════════════
+   ANIMATED BARS
+══════════════════════════════════════════ */
+.bar-group{display:flex;flex-direction:column;gap:.9rem;}
+.bar-item{background:white;border-radius:12px;padding:1rem;
+  border:1.5px solid var(--border);transition:box-shadow .25s,transform .25s;}
+.bar-item:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(14,165,176,.1);}
+.bar-label-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;}
+.bar-name{font-size:.82rem;font-weight:800;color:var(--navy);}
+.bar-val{font-size:.82rem;font-weight:800;}
+.bar-bg{height:22px;background:#e4f4f6;border-radius:6px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:6px;width:0;transition:width 1.2s cubic-bezier(.23,1,.32,1);
+  display:flex;align-items:center;justify-content:flex-end;padding-right:.5rem;
+  font-size:.7rem;font-weight:800;color:white;}
+.fill-teal{background:linear-gradient(90deg,var(--teal),var(--teal2));}
+.fill-yellow{background:linear-gradient(90deg,#f4a020,var(--yellow));color:var(--navy)!important;}
+.fill-coral{background:linear-gradient(90deg,var(--coral),#ff9f9f);}
+.bar-hint{font-size:.74rem;color:var(--soft);margin-top:.35rem;}
 
-  /* TIMELINE */
-  .tl-wrap{padding-left:2rem;position:relative;}
-  .tl-wrap::before{content:'';position:absolute;left:.4rem;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--teal),var(--purple));border-radius:2px;opacity:.4;}
-  .tl-item{position:relative;margin-bottom:1.1rem;}
-  .tl-dot{position:absolute;left:-2rem;top:.3rem;width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--teal2));border:2px solid white;box-shadow:0 0 0 2px var(--teal);}
-  .tl-year{font-size:.74rem;font-weight:800;color:var(--teal);margin-bottom:.1rem;}
-  .tl-desc{font-size:.85rem;color:var(--soft);line-height:1.65;}
-  .tl-hl{color:var(--navy);font-weight:800;}
+/* ══════════════════════════════════════════
+   DISTRACTOR
+══════════════════════════════════════════ */
+.dist-row{display:flex;align-items:center;gap:.65rem;padding:.65rem .9rem;
+  border-radius:12px;background:var(--bg);border:1.5px solid var(--border);
+  margin-bottom:.5rem;transition:all .25s;cursor:default;}
+.dist-row:hover{border-color:var(--teal);transform:translateX(4px);}
+.dist-num{width:26px;height:26px;border-radius:50%;background:#d9f0f3;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;}
+.dist-num.ans{background:linear-gradient(135deg,var(--teal),var(--teal2));color:white;}
+.dist-num.hot{background:linear-gradient(135deg,#f4a020,var(--yellow));color:white;}
+.dist-pct{font-size:.8rem;font-weight:800;width:28px;flex-shrink:0;}
+.dist-bar-bg{flex:1;height:8px;background:#d9f0f3;border-radius:4px;overflow:hidden;}
+.dist-bar-fill{height:100%;border-radius:4px;background:#9ecdd6;width:0;transition:width 1s ease .3s;}
+.dist-bar-fill.ans{background:linear-gradient(90deg,var(--teal),var(--teal2));}
+.dist-bar-fill.hot{background:linear-gradient(90deg,#f4a020,var(--yellow));}
+.dist-note{font-size:.72rem;color:var(--soft);flex:1;min-width:0;}
 
-  /* PREMISE */
-  .premise{background:white;border-radius:18px;padding:2rem;border:1.5px solid var(--border);box-shadow:0 4px 24px rgba(14,165,176,.06);}
-  .premise h4{font-size:1rem;font-weight:800;color:var(--navy);margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem;}
+/* ══════════════════════════════════════════
+   PROFILE BUBBLES — 3×2 grid
+══════════════════════════════════════════ */
+.bubbles{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
+  max-width:520px;margin:0 auto;}
+.bub{border-radius:50%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  text-align:center;font-size:.78rem;font-weight:700;padding:.5rem;
+  flex-direction:column;gap:.18rem;line-height:1.3;width:100%;max-width:150px;justify-self:center;
+  transition:all .25s;cursor:default;animation:float 3s ease-in-out infinite;}
+.bub:nth-child(1){animation-delay:0s;}
+.bub:nth-child(2){animation-delay:.4s;}
+.bub:nth-child(3){animation-delay:.8s;}
+.bub:nth-child(4){animation-delay:1.2s;}
+.bub:nth-child(5){animation-delay:1.6s;}
+.bub:nth-child(6){animation-delay:2s;}
+.bub .icon{font-size:1.3rem;}
+.bub-1{background:#fff0f5;border:2px solid #ffb3c6;color:#c0496a;}
+.bub-2{background:#f0fff4;border:2px solid #6bda9c;color:#1a7a4a;}
+.bub-3{background:#fefce8;border:2px solid #ffd166;color:#8a6a00;}
+.bub-4{background:#f0f9ff;border:2px solid #7dd3fc;color:#0369a1;}
+.bub-5{background:#f5f3ff;border:2px solid #c4b5fd;color:#5b21b6;}
+.bub-6{background:#fff7ed;border:2px solid #fdba74;color:#c2410c;}
+.bub:hover{transform:scale(1.1) translateY(-4px)!important;filter:brightness(.95);}
 
-  /* SCALE */
-  .scale-box{background:linear-gradient(135deg,var(--navy),#2a4a7f);border-radius:18px;padding:2rem;text-align:center;color:white;box-shadow:0 8px 32px rgba(30,58,95,.2);}
-  .scale-box .icon{font-size:2.4rem;margin-bottom:1rem;}
-  .scale-box p{font-size:.88rem;line-height:1.8;color:rgba(255,255,255,.75);}
-  .scale-box strong{color:var(--yellow);}
+/* ══════════════════════════════════════════
+   EBEL INTERACTIVE TABLE
+══════════════════════════════════════════ */
+.ebel-row{cursor:pointer;transition:all .2s;}
+.ebel-row:hover td{background:rgba(14,165,176,.08)!important;}
+.ebel-row.match td{background:rgba(14,165,176,.18)!important;font-weight:800;}
+.ebel-row.match td:first-child{border-left:4px solid var(--teal);}
 
-  /* STEP CALC */
-  .step-calc{background:linear-gradient(135deg,#edfcfe,#f0f0ff);border-radius:12px;padding:1.4rem;font-size:.85rem;line-height:1.85;color:var(--soft);margin-top:1rem;border:1px solid rgba(14,165,176,.2);}
-  .step-calc .result{font-size:1.1rem;font-weight:800;color:var(--teal);margin-top:.8rem;}
-  .step-badge{display:inline-block;background:linear-gradient(135deg,var(--teal),var(--teal2));color:white;border-radius:8px;padding:.4rem .9rem;font-size:.8rem;font-weight:800;margin-top:.6rem;}
+/* ══════════════════════════════════════════
+   LIMIT CARDS
+══════════════════════════════════════════ */
+.limit-grid{display:grid;grid-template-columns:1fr;gap:1rem;margin-top:1.3rem;}
+@media(min-width:640px){.limit-grid{grid-template-columns:repeat(3,1fr);}}
+.limit-card{background:rgba(255,255,255,.08);border-radius:14px;padding:1.3rem;
+  border-top:3px solid var(--yellow);transition:transform .25s,background .25s;}
+.limit-card:hover{transform:translateY(-4px);background:rgba(255,255,255,.13);}
+.limit-card h4{color:white;font-size:.86rem;font-weight:800;margin-bottom:.55rem;display:flex;align-items:center;gap:.35rem;}
+.limit-card ul{list-style:none;}
+.limit-card li{font-size:.8rem;color:rgba(255,255,255,.65);padding:.2rem 0 .2rem 1rem;position:relative;line-height:1.65;}
+.limit-card li::before{content:'–';position:absolute;left:0;color:var(--yellow);}
 
-  /* RESP TABLE */
-  .rt{border-collapse:collapse;width:100%;font-size:.79rem;}
-  .rt th{background:linear-gradient(135deg,var(--teal),#0d7ea8);color:white;padding:.5rem .7rem;text-align:center;font-size:.74rem;}
-  .rt td{padding:.48rem .7rem;border-bottom:1px solid var(--border);text-align:center;}
-  .rt .ans{color:var(--teal);font-weight:800;}
-  .rt .odd{color:var(--coral);font-weight:800;}
+/* ══════════════════════════════════════════
+   TIMELINE — animated dots
+══════════════════════════════════════════ */
+.tl-wrap{padding-left:2rem;position:relative;}
+.tl-wrap::before{content:'';position:absolute;left:.4rem;top:0;bottom:0;width:2px;
+  background:linear-gradient(to bottom,var(--teal),var(--purple));border-radius:2px;opacity:.35;}
+.tl-item{position:relative;margin-bottom:1rem;}
+.tl-dot{position:absolute;left:-2rem;top:.28rem;width:12px;height:12px;border-radius:50%;
+  background:linear-gradient(135deg,var(--teal),var(--teal2));
+  border:2.5px solid white;box-shadow:0 0 0 2px var(--teal);
+  transition:transform .2s;cursor:default;}
+.tl-item:hover .tl-dot{transform:scale(1.4);}
+.tl-year{font-size:.73rem;font-weight:800;color:var(--teal);margin-bottom:.05rem;}
+.tl-desc{font-size:.84rem;color:var(--soft);line-height:1.65;}
+.tl-hl{color:var(--navy);font-weight:800;}
 
-  /* IRT FEATURE */
-  .irt-feat{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.2rem;}
-  @media(max-width:680px){.irt-feat{grid-template-columns:1fr;}}
-  .irt-card{background:var(--bg);border-radius:14px;padding:1.2rem;border:1.5px solid var(--border);}
-  .irt-card h4{font-size:.88rem;font-weight:800;color:var(--navy);margin-bottom:.4rem;display:flex;align-items:center;gap:.4rem;}
+/* ══════════════════════════════════════════
+   PREMISE
+══════════════════════════════════════════ */
+.premise{background:white;border-radius:18px;padding:1.8rem;
+  border:1.5px solid var(--border);box-shadow:0 4px 24px rgba(14,165,176,.06);}
+.premise h4{font-size:.96rem;font-weight:800;color:var(--navy);margin-bottom:.75rem;display:flex;align-items:center;gap:.45rem;}
 
-  /* SUMMARY CARD */
-  .summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:1.5rem;}
-  @media(max-width:680px){.summary-grid{grid-template-columns:1fr;}}
-  .sum-card{border-radius:14px;padding:1.5rem;border:2px solid;}
-  .sum-card h4{font-size:.95rem;font-weight:800;margin-bottom:.8rem;display:flex;align-items:center;gap:.4rem;}
-  .sum-card ul{list-style:none;padding:0;}
-  .sum-card li{font-size:.85rem;padding:.28rem 0 .28rem 1.2rem;position:relative;line-height:1.7;}
-  .sum-card li::before{content:'✓';position:absolute;left:0;font-size:.72rem;font-weight:800;}
-  .sum-teal{background:rgba(14,165,176,.18);border-color:rgba(14,165,176,.5);}
-  .sum-teal h4{color:#6ee7ef;}
-  .sum-teal li::before{color:#06d6a0;}
-  .sum-teal li{color:rgba(255,255,255,.9);}
-  .sum-purple{background:rgba(132,94,247,.18);border-color:rgba(132,94,247,.5);}
-  .sum-purple h4{color:#c4b5fd;}
-  .sum-purple li::before{color:#a78bfa;}
-  .sum-purple li{color:rgba(255,255,255,.9);}
-  .sum-coral{background:rgba(255,107,107,.18);border-color:rgba(255,107,107,.5);}
-  .sum-coral h4{color:#fca5a5;}
-  .sum-coral li::before{color:#ff6b6b;}
-  .sum-coral li{color:rgba(255,255,255,.9);}
-  .sum-yellow{background:rgba(255,209,102,.15);border-color:rgba(255,209,102,.55);}
-  .sum-yellow h4{color:#fde68a;}
-  .sum-yellow li::before{color:#ffd166;}
-  .sum-yellow li{color:rgba(255,255,255,.9);}
+/* ══════════════════════════════════════════
+   SCALE BOX & IRT CARDS
+══════════════════════════════════════════ */
+.scale-box{background:linear-gradient(135deg,var(--navy),#2a4a7f);border-radius:18px;
+  padding:1.8rem;text-align:center;color:white;box-shadow:0 8px 32px rgba(30,58,95,.2);}
+.scale-box .icon{font-size:2.2rem;margin-bottom:.8rem;display:block;animation:float 3s ease-in-out infinite;}
+.scale-box p{font-size:.86rem;line-height:1.8;color:rgba(255,255,255,.75);}
+.scale-box strong{color:var(--yellow);}
+.irt-feat{display:grid;grid-template-columns:1fr;gap:.9rem;margin-top:1.1rem;}
+@media(min-width:540px){.irt-feat{grid-template-columns:1fr 1fr;}}
+.irt-card{background:var(--bg);border-radius:14px;padding:1.1rem;
+  border:1.5px solid var(--border);transition:transform .25s,box-shadow .25s;}
+.irt-card:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(14,165,176,.1);}
+.irt-card h4{font-size:.86rem;font-weight:800;color:var(--navy);margin-bottom:.35rem;display:flex;align-items:center;gap:.35rem;}
 
-  /* ENDING */
-  .ending{background:linear-gradient(135deg,#845ef7,#0ea5b0);padding:6rem 2rem;text-align:center;}
-  .ending .tag{font-size:.72rem;font-weight:800;letter-spacing:.16em;color:var(--yellow);text-transform:uppercase;margin-bottom:1rem;}
-  .ending h2{font-size:clamp(2rem,4vw,3rem);font-weight:800;color:white;letter-spacing:-.02em;}
-  .ending p{color:rgba(255,255,255,.65);margin-top:.8rem;font-size:.9rem;}
-  .ending-line{width:40px;height:3px;background:var(--yellow);border-radius:2px;margin:1.8rem auto 0;}
+/* ══════════════════════════════════════════
+   SUMMARY CARDS
+══════════════════════════════════════════ */
+.summary-grid{display:grid;grid-template-columns:1fr;gap:1rem;margin-top:1.3rem;}
+@media(min-width:540px){.summary-grid{grid-template-columns:1fr 1fr;}}
+.sum-card{border-radius:14px;padding:1.4rem;border:2px solid;transition:transform .25s;}
+.sum-card:hover{transform:translateY(-3px);}
+.sum-card h4{font-size:.92rem;font-weight:800;margin-bottom:.7rem;display:flex;align-items:center;gap:.35rem;}
+.sum-card ul{list-style:none;}
+.sum-card li{font-size:.83rem;padding:.25rem 0 .25rem 1.1rem;position:relative;line-height:1.7;}
+.sum-card li::before{content:'✓';position:absolute;left:0;font-size:.7rem;font-weight:800;}
+.sum-teal{background:rgba(14,165,176,.18);border-color:rgba(14,165,176,.5);}
+.sum-teal h4{color:#6ee7ef;}.sum-teal li{color:rgba(255,255,255,.9);}.sum-teal li::before{color:#06d6a0;}
+.sum-purple{background:rgba(132,94,247,.18);border-color:rgba(132,94,247,.5);}
+.sum-purple h4{color:#c4b5fd;}.sum-purple li{color:rgba(255,255,255,.9);}.sum-purple li::before{color:#a78bfa;}
+.sum-coral{background:rgba(255,107,107,.18);border-color:rgba(255,107,107,.5);}
+.sum-coral h4{color:#fca5a5;}.sum-coral li{color:rgba(255,255,255,.9);}.sum-coral li::before{color:#ff6b6b;}
+.sum-yellow{background:rgba(255,209,102,.15);border-color:rgba(255,209,102,.55);}
+.sum-yellow h4{color:#fde68a;}.sum-yellow li{color:rgba(255,255,255,.9);}.sum-yellow li::before{color:#ffd166;}
 
-  footer{background:#0f2036;padding:1.8rem 2rem;text-align:center;font-size:.78rem;color:rgba(255,255,255,.3);}
-  footer span{color:var(--teal2);}
+/* ══════════════════════════════════════════
+   TOOLTIP
+══════════════════════════════════════════ */
+[data-tip]{position:relative;}
+[data-tip]::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;
+  transform:translateX(-50%);background:var(--navy);color:white;font-size:.7rem;font-weight:700;
+  padding:.3rem .6rem;border-radius:6px;white-space:nowrap;pointer-events:none;
+  opacity:0;transition:opacity .2s;z-index:10;}
+[data-tip]:hover::after{opacity:1;}
 
-  /* REVEAL */
-  .r{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease;}
-  .r.in{opacity:1;transform:none;}
+/* ══════════════════════════════════════════
+   RIPPLE BUTTON
+══════════════════════════════════════════ */
+.ripple-btn{position:relative;overflow:hidden;cursor:pointer;}
+.ripple-btn .ripple-circle{position:absolute;border-radius:50%;
+  background:rgba(255,255,255,.35);animation:ripple .6s linear;pointer-events:none;}
 
-  /* tooltip pulse for formula */
-  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(14,165,176,.4);}50%{box-shadow:0 0 0 6px rgba(14,165,176,0);}}
-  .pulse{animation:pulse 2s infinite;}
+/* ══════════════════════════════════════════
+   RESP TABLE
+══════════════════════════════════════════ */
+.rt{border-collapse:collapse;width:100%;font-size:.78rem;}
+.rt th{background:linear-gradient(135deg,var(--teal),#0d7ea8);color:white;padding:.48rem .6rem;text-align:center;font-size:.72rem;}
+.rt td{padding:.45rem .6rem;border-bottom:1px solid var(--border);text-align:center;transition:background .2s;}
+.rt tr:hover td{background:rgba(14,165,176,.06);}
+.rt .ans{color:var(--teal);font-weight:800;}
+.rt .odd{color:var(--coral);font-weight:800;}
+
+/* ══════════════════════════════════════════
+   ENDING & FOOTER
+══════════════════════════════════════════ */
+.ending{background:linear-gradient(135deg,#845ef7,#0ea5b0);padding:5rem 1.5rem;text-align:center;}
+.ending .tag{font-size:.7rem;font-weight:800;letter-spacing:.16em;color:var(--yellow);text-transform:uppercase;margin-bottom:1rem;}
+.ending h2{font-size:clamp(1.8rem,5vw,3rem);font-weight:800;color:white;letter-spacing:-.02em;}
+.ending p{color:rgba(255,255,255,.65);margin-top:.8rem;font-size:.9rem;}
+.ending-line{width:40px;height:3px;background:var(--yellow);border-radius:2px;margin:1.6rem auto 0;}
+footer{background:#0f2036;padding:1.6rem 1.5rem;text-align:center;font-size:.76rem;color:rgba(255,255,255,.3);}
+footer span{color:var(--teal2);}
+
+/* ══════════════════════════════════════════
+   MOBILE RESPONSIVE PATCHES
+══════════════════════════════════════════ */
+@media(max-width:480px){
+  .sec{padding:3rem 1rem;}
+  .part{padding:2.8rem 1rem;}
+  .bubbles{max-width:340px;gap:.7rem;}
+  .bub{font-size:.72rem;}
+  .bub .icon{font-size:1.1rem;}
+  .dist-note{display:none;}
+  table{font-size:.68rem;}
+  th,td{padding:.4rem .4rem;}
+  .step-calc{font-size:.78rem;}
+  .formula-wrap{font-size:.8rem;}
+}
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <div class="nav-logo">📊 제10장 · 문항분석</div>
   <div class="nav-links">
@@ -243,7 +429,15 @@
     <a href="#ctt">📐 고전검사이론</a>
     <a href="#irt">🔬 문항반응이론</a>
   </div>
+  <button class="hamburger" id="hbg" aria-label="메뉴">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#intro" onclick="closeMobileMenu()">🙋 자기소개</a>
+  <a href="#ctt"   onclick="closeMobileMenu()">📐 고전검사이론</a>
+  <a href="#irt"   onclick="closeMobileMenu()">🔬 문항반응이론</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -253,26 +447,27 @@
   <div class="hero-line"></div>
   <p class="hero-sub">고전검사이론에서 문항반응이론까지<br>핵심 원리와 사례 분석</p>
   <div class="toc">
-    <a href="#intro" class="toc-item"><span class="n">🙋 01</span><span class="t">자기소개</span></a>
-    <a href="#ctt"   class="toc-item"><span class="n">📐 02</span><span class="t">고전검사이론</span></a>
-    <a href="#irt"   class="toc-item"><span class="n">🔬 03</span><span class="t">문항반응이론</span></a>
+    <a href="#intro" class="toc-item ripple-btn"><span class="n">🙋 01</span><span class="t">자기소개</span></a>
+    <a href="#ctt"   class="toc-item ripple-btn"><span class="n">📐 02</span><span class="t">고전검사이론</span></a>
+    <a href="#irt"   class="toc-item ripple-btn"><span class="n">🔬 03</span><span class="t">문항반응이론</span></a>
   </div>
+  <div class="scroll-hint"><span>SCROLL</span><span class="arr">↓</span></div>
 </section>
 
-<!-- ═══════════════ PART 01 ═══════════════ -->
+<!-- ═══ PART 01 ═══ -->
 <div class="part p1" id="intro">
+  <span class="part-num">01</span>
   <h2>🌟 Part 01. 자기소개</h2>
   <p>"교육공학 김민희"</p>
 </div>
 
 <section class="sec alt">
   <div class="wrap">
-    <div class="r" style="text-align:center;margin-bottom:2.5rem;">
+    <div class="r" style="text-align:center;margin-bottom:2rem;">
       <span class="label">🙋 Presenter</span>
-      <div style="font-size:clamp(1.8rem,3vw,2.4rem);font-weight:800;color:var(--teal);">김민희</div>
-      <div style="font-size:.88rem;color:var(--soft);margin-top:.4rem;">부산대 AI융합교육원</div>
+      <div style="font-size:clamp(1.8rem,4vw,2.4rem);font-weight:800;color:var(--teal);">김민희</div>
+      <div style="font-size:.86rem;color:var(--soft);margin-top:.3rem;">부산대 AI융합교육원</div>
     </div>
-    <!-- 순서: 계란 한판, 반도체, 부산대, ENTP, 워커홀릭, 볼린이 -->
     <div class="bubbles r">
       <div class="bub bub-1"><span class="icon">🥚</span>계란 한판<br>(30)</div>
       <div class="bub bub-4"><span class="icon">💻</span>반도체(설계)<br>전공</div>
@@ -284,32 +479,32 @@
   </div>
 </section>
 
-<!-- ═══════════════ PART 02 ═══════════════ -->
+<!-- ═══ PART 02 ═══ -->
 <div class="part p2" id="ctt">
+  <span class="part-num">02</span>
   <h2>📐 Part 02. 고전검사이론</h2>
   <p>"전체 점수와 개별 문항의 정밀한 조화"</p>
 </div>
 
-<!-- 문항변별도 개념 -->
+<!-- 문항변별도 -->
 <section class="sec">
   <div class="wrap">
     <div class="sec-title r">🔍 문항변별도: 진짜 실력을 가르는 필터</div>
-    <div class="g2 r">
-      <div>
+    <div class="g2">
+      <div class="r from-left">
         <span class="label">💡 개념 이해</span>
         <p class="body">문항변별도는 <strong>'성적 좋은 학생은 맞히고, 부족한 학생은 틀리는가?'</strong>를 정밀하게 측정하는 지표입니다.</p>
         <div class="info-box">
           <strong>🪣 거름종이 비유</strong><br>
-          좋은 문항은 상위권과 하위권을 정확히 걸러내지만,
-          나쁜 문항은 모두가 통과하거나 모두가 걸리게 만듭니다.
+          좋은 문항은 상위권과 하위권을 정확히 걸러내지만, 나쁜 문항은 모두가 통과하거나 모두가 걸리게 만듭니다.
         </div>
       </div>
-      <div>
+      <div class="r from-right">
         <div class="pill">
-          <p style="font-weight:800;margin-bottom:.7rem;">📊 통계적 필터링의 이상적인 구조</p>
+          <p style="font-weight:800;margin-bottom:.6rem;">📊 통계적 필터링의 이상적인 구조</p>
           <p>⬆️ 상위 27% 집단 → 높은 정답률 (예: 90%)</p>
           <p>⬇️ 하위 27% 집단 → 낮은 정답률 (예: 15%)</p>
-          <p style="margin-top:.8rem;font-size:.84rem;color:var(--soft);">두 집단 간의 확실한 격차가 존재해야 양질의 문항으로 평가받을 수 있습니다.</p>
+          <p style="margin-top:.7rem;font-size:.83rem;color:var(--soft);">두 집단 간의 확실한 격차가 존재해야 양질의 문항으로 평가받을 수 있습니다.</p>
         </div>
       </div>
     </div>
@@ -320,10 +515,8 @@
 <section class="sec alt">
   <div class="wrap">
     <div class="sec-title r">📏 상관계수를 사용한 문항변별도(r)</div>
-    <p class="body r" style="margin-bottom:1.5rem;">상하부 지수를 사용한 문항변별도는 정확성 낮은 추정치입니다. 이를 보완한 학생 전원의 응답 데이터를 총점과 연동하여 <strong>"상관계수"로 계산하는 정밀한 방식</strong>을 사용합니다.</p>
-
-    <!-- 공식 -->
-    <div class="formula-wrap r" style="margin-bottom:1.5rem;">
+    <p class="body r" style="margin-bottom:1.3rem;">상하부 지수를 사용한 문항변별도는 정확성 낮은 추정치입니다. 이를 보완한 학생 전원의 응답 데이터를 총점과 연동하여 <strong>"상관계수"로 계산하는 정밀한 방식</strong>을 사용합니다.</p>
+    <div class="formula-wrap r">
       <div class="eq-line">
         <span>r =</span>
         <span class="frac">
@@ -331,61 +524,54 @@
           <span class="den">√[<span class="hl-pink">N</span>Σ<span class="hl-blue">X</span>² − (Σ<span class="hl-blue">X</span>)²] · √[<span class="hl-pink">N</span>Σ<span class="hl-green">Y</span>² − (Σ<span class="hl-green">Y</span>)²]</span>
         </span>
       </div>
-      <div class="notes" style="margin-top:.8rem;text-align:center;font-size:.8rem;">
-        <span class="hl-pink">N</span> : 총 피험자 수 &nbsp;|&nbsp;
-        <span class="hl-blue">X</span> : 각 피험자의 문항점수 (0 또는 1) &nbsp;|&nbsp;
-        <span class="hl-green">Y</span> : 각 피험자의 시험 총점 &nbsp;|&nbsp; r은 +1.00 ~ −1.00 분포
-      </div>
+      <div class="notes"><span class="hl-pink">N</span>: 총 피험자 수 &nbsp;|&nbsp; <span class="hl-blue">X</span>: 각 피험자의 문항점수 (0 또는 1) &nbsp;|&nbsp; <span class="hl-green">Y</span>: 각 피험자의 시험 총점 &nbsp;|&nbsp; r은 +1.00 ~ −1.00 분포</div>
     </div>
 
-    <div class="g2 r">
-      <!-- 데이터 테이블 -->
+    <div class="g2 r" style="margin-top:1.5rem;">
       <div>
-        <p class="body" style="font-size:.8rem;margin-bottom:.6rem;color:var(--soft);">👆 문항 열 헤더를 클릭하면 해당 문항의 r값이 계산됩니다</p>
-        <div style="overflow-x:auto;">
-        <table id="dataTable" style="font-size:.73rem;">
-          <thead>
-            <tr>
-              <th rowspan="2" style="min-width:42px;">피험자<br><span style="color:var(--yellow);font-size:.85em;">N=10</span></th>
-              <th colspan="10">문항점수 (<span style="color:var(--yellow);">X</span>)</th>
-              <th style="background:#0a6e7c;"><span style="color:var(--yellow);">총점<br>(Y)</span></th>
-              <th style="background:#0a6e7c;color:#90e0ef;">XY</th>
-              <th style="background:#0a6e7c;color:#ff9090;">X²</th>
-              <th style="background:#0a6e7c;">Y²</th>
-            </tr>
-            <tr>
-              <th class="col-header" data-col="0" style="cursor:pointer;transition:background .2s;" title="A 문항 계산">A</th>
-              <th class="col-header" data-col="1" style="cursor:pointer;transition:background .2s;" title="B 문항 계산">B</th>
-              <th class="col-header" data-col="2" style="cursor:pointer;transition:background .2s;" title="C 문항 계산">C</th>
-              <th class="col-header" data-col="3" style="cursor:pointer;transition:background .2s;" title="D 문항 계산">D</th>
-              <th class="col-header" data-col="4" style="cursor:pointer;transition:background .2s;" title="E 문항 계산">E</th>
-              <th class="col-header" data-col="5" style="cursor:pointer;transition:background .2s;" title="F 문항 계산">F</th>
-              <th class="col-header" data-col="6" style="cursor:pointer;transition:background .2s;" title="G 문항 계산">G</th>
-              <th class="col-header" data-col="7" style="cursor:pointer;transition:background .2s;" title="H 문항 계산">H</th>
-              <th class="col-header" data-col="8" style="cursor:pointer;transition:background .2s;" title="I 문항 계산">I</th>
-              <th class="col-header" data-col="9" style="cursor:pointer;transition:background .2s;" title="J 문항 계산">J</th>
-              <th style="background:#0a6e7c;"></th><th style="background:#0a6e7c;"></th>
-              <th style="background:#0a6e7c;"></th><th style="background:#0a6e7c;"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td class="td-g">10</td><td class="td-b">10</td><td class="td-r">1</td><td>100</td></tr>
-            <tr><td>2</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td class="td-g">6</td><td class="td-b">0</td><td class="td-r">0</td><td>36</td></tr>
-            <tr><td>3</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td class="td-g">3</td><td class="td-b">3</td><td class="td-r">1</td><td>9</td></tr>
-            <tr><td>4</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td class="td-g">6</td><td class="td-b">6</td><td class="td-r">1</td><td>36</td></tr>
-            <tr><td>5</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td class="td-g">7</td><td class="td-b">7</td><td class="td-r">1</td><td>49</td></tr>
-            <tr><td>6</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td class="td-g">8</td><td class="td-b">8</td><td class="td-r">1</td><td>64</td></tr>
-            <tr><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td class="td-g">4</td><td class="td-b">0</td><td class="td-r">0</td><td>16</td></tr>
-            <tr><td>8</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="td-g">2</td><td class="td-b">0</td><td class="td-r">0</td><td>4</td></tr>
-            <tr><td>9</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="td-g">5</td><td class="td-b">5</td><td class="td-r">1</td><td>25</td></tr>
-            <tr><td>10</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td class="td-g">9</td><td class="td-b">9</td><td class="td-r">1</td><td>81</td></tr>
-            <tr class="tr-s"><td>Σ</td><td>7</td><td>7</td><td>7</td><td>3</td><td>4</td><td>4</td><td>7</td><td>7</td><td>8</td><td>6</td><td>60</td><td>48</td><td>7</td><td>420</td></tr>
-          </tbody>
-        </table>
+        <p class="body" style="font-size:.78rem;margin-bottom:.5rem;color:var(--teal);font-weight:800;">👆 문항 열 헤더(A~J)를 클릭하면 해당 문항의 r값이 계산됩니다</p>
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+          <table id="dataTable" style="min-width:520px;">
+            <thead>
+              <tr>
+                <th rowspan="2" style="min-width:36px;">피험자<br><span style="color:var(--yellow);font-size:.85em;">N=10</span></th>
+                <th colspan="10">문항점수 (<span style="color:var(--yellow);">X</span>)</th>
+                <th style="background:#0a6e7c;"><span style="color:var(--yellow);">총점<br>(Y)</span></th>
+                <th style="background:#0a6e7c;color:#90e0ef;">XY</th>
+                <th style="background:#0a6e7c;color:#ff9090;">X²</th>
+                <th style="background:#0a6e7c;">Y²</th>
+              </tr>
+              <tr>
+                <th class="col-header" data-col="0" data-tip="A문항 계산">A</th>
+                <th class="col-header" data-col="1" data-tip="B문항 계산">B</th>
+                <th class="col-header" data-col="2" data-tip="C문항 계산">C</th>
+                <th class="col-header" data-col="3" data-tip="D문항 계산">D</th>
+                <th class="col-header" data-col="4" data-tip="E문항 계산">E</th>
+                <th class="col-header" data-col="5" data-tip="F문항 계산">F</th>
+                <th class="col-header" data-col="6" data-tip="G문항 계산">G</th>
+                <th class="col-header" data-col="7" data-tip="H문항 계산">H</th>
+                <th class="col-header" data-col="8" data-tip="I문항 계산">I</th>
+                <th class="col-header" data-col="9" data-tip="J문항 계산">J</th>
+                <th style="background:#0a6e7c;"></th><th style="background:#0a6e7c;"></th>
+                <th style="background:#0a6e7c;"></th><th style="background:#0a6e7c;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td class="td-g">10</td><td class="td-b">10</td><td class="td-r">1</td><td>100</td></tr>
+              <tr><td>2</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td class="td-g">6</td><td class="td-b">0</td><td class="td-r">0</td><td>36</td></tr>
+              <tr><td>3</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td class="td-g">3</td><td class="td-b">3</td><td class="td-r">1</td><td>9</td></tr>
+              <tr><td>4</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td><td class="td-g">6</td><td class="td-b">6</td><td class="td-r">1</td><td>36</td></tr>
+              <tr><td>5</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td class="td-g">7</td><td class="td-b">7</td><td class="td-r">1</td><td>49</td></tr>
+              <tr><td>6</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td class="td-g">8</td><td class="td-b">8</td><td class="td-r">1</td><td>64</td></tr>
+              <tr><td>7</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td class="td-g">4</td><td class="td-b">0</td><td class="td-r">0</td><td>16</td></tr>
+              <tr><td>8</td><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="td-g">2</td><td class="td-b">0</td><td class="td-r">0</td><td>4</td></tr>
+              <tr><td>9</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td class="td-g">5</td><td class="td-b">5</td><td class="td-r">1</td><td>25</td></tr>
+              <tr><td>10</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td class="td-g">9</td><td class="td-b">9</td><td class="td-r">1</td><td>81</td></tr>
+              <tr class="tr-s"><td>Σ</td><td>7</td><td>7</td><td>7</td><td>3</td><td>4</td><td>4</td><td>7</td><td>7</td><td>8</td><td>6</td><td>60</td><td>48</td><td>7</td><td>420</td></tr>
+            </tbody>
+          </table>
         </div>
-
-        <!-- 상하부지수 vs 상관계수 비교 -->
-        <table style="margin-top:1rem;font-size:.78rem;text-align:center;">
+        <table style="margin-top:.9rem;font-size:.76rem;text-align:center;">
           <thead><tr><th>구분</th><th>상하부지수</th><th>상관계수</th></tr></thead>
           <tbody>
             <tr><td style="font-weight:800;">장점</td><td>산출 편의성 극대화<br>집단 간 격차의 명확성</td><td>전체 데이터 활용<br>분할 기준 유연</td></tr>
@@ -394,43 +580,14 @@
         </table>
       </div>
 
-      <!-- 계산 풀이 -->
       <div>
-        <span class="label" id="calc-label">🧮 계산 풀이 (1번 문항 기준)</span>
+        <span class="label" id="calc-label">🧮 계산 풀이 (A번 문항 기준)</span>
         <div class="step-calc" id="calc-box">
-          <p id="calc-step1">
-            r =
-            <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .1em;">
-              <span style="border-bottom:2px solid var(--navy);padding-bottom:.1em;font-weight:800;"><span class="hl-pink">N</span>Σ<span class="hl-blue">X</span><span class="hl-green">Y</span> − (Σ<span class="hl-blue">X</span>)(Σ<span class="hl-green">Y</span>)</span>
-              <span style="padding-top:.1em;font-weight:800;">√[<span class="hl-pink">N</span>Σ<span class="hl-blue">X</span>² − (Σ<span class="hl-blue">X</span>)²] · √[<span class="hl-pink">N</span>Σ<span class="hl-green">Y</span>² − (Σ<span class="hl-green">Y</span>)²]</span>
-            </span>
-          </p>
-          <p id="calc-step2" style="margin-top:.6rem;">
-            =
-            <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .1em;">
-              <span style="border-bottom:2px solid var(--navy);padding-bottom:.1em;font-weight:800;"><span class="hl-pink">10</span>(48) − (<span class="hl-blue">7</span>)(<span class="hl-green">60</span>)</span>
-              <span style="padding-top:.1em;font-weight:800;">√[<span class="hl-pink">10</span>(<span class="hl-blue">7</span>) − <span class="hl-blue">7</span>²] · √[<span class="hl-pink">10</span>(420) − <span class="hl-green">60</span>²]</span>
-            </span>
-          </p>
-          <p id="calc-step3" style="margin-top:.6rem;">
-            =
-            <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .1em;">
-              <span style="border-bottom:2px solid var(--navy);padding-bottom:.1em;font-weight:800;">480 − 420</span>
-              <span style="padding-top:.1em;font-weight:800;">√21 · √600</span>
-            </span>
-            =
-            <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .1em;">
-              <span style="border-bottom:2px solid var(--navy);padding-bottom:.1em;font-weight:800;">60</span>
-              <span style="padding-top:.1em;font-weight:800;">30√14</span>
-            </span>
-            =
-            <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .1em;">
-              <span style="border-bottom:2px solid var(--navy);padding-bottom:.1em;font-weight:800;">2</span>
-              <span style="padding-top:.1em;font-weight:800;">√14</span>
-            </span>
-          </p>
+          <p id="calc-step1">r = <span class="frac"><span class="num"><span class="hl-pink">N</span>Σ<span class="hl-blue">X</span><span class="hl-green">Y</span> − (Σ<span class="hl-blue">X</span>)(Σ<span class="hl-green">Y</span>)</span><span class="den">√[<span class="hl-pink">N</span>Σ<span class="hl-blue">X</span>² − (Σ<span class="hl-blue">X</span>)²] · √[<span class="hl-pink">N</span>Σ<span class="hl-green">Y</span>² − (Σ<span class="hl-green">Y</span>)²]</span></span></p>
+          <p id="calc-step2" style="margin-top:.5rem;">= <span class="frac"><span class="num"><span class="hl-pink">10</span>(48) − (<span class="hl-blue">7</span>)(<span class="hl-green">60</span>)</span><span class="den">√[<span class="hl-pink">10</span>(<span class="hl-blue">7</span>) − <span class="hl-blue">7</span>²] · √[<span class="hl-pink">10</span>(420) − <span class="hl-green">60</span>²]</span></span></p>
+          <p id="calc-step3" style="margin-top:.5rem;">= <span class="frac"><span class="num">60</span><span class="den">√21 · √600</span></span> = <span class="frac"><span class="num">60</span><span class="den">30√14</span></span> = <span class="frac"><span class="num">2</span><span class="den">√14</span></span></p>
           <div class="result" id="calc-result">✅ r = <strong>.53</strong></div>
-          <span class="step-badge pulse" id="calc-badge">🎯 .53 > .40 → 변별력이 높은 문항!</span>
+          <div id="calc-badge" class="step-badge">⭐ .53 > .40 → 변별력이 높은 문항!</div>
         </div>
       </div>
     </div>
@@ -441,37 +598,47 @@
 <section class="sec">
   <div class="wrap">
     <div class="sec-title r">⚖️ 좋은 문항 vs 나쁜 문항</div>
-    <div class="g2 r">
-      <div>
+    <div class="g2">
+      <div class="r from-left">
         <span class="label">📋 Ebel의 문항변별도 평가기준</span>
         <table>
           <thead><tr><th>문항변별도</th><th>문항평가</th></tr></thead>
           <tbody>
-            <tr><td>.10 미만</td><td>❌ 변별력이 없는 문항</td></tr>
-            <tr><td>.10 이상 ~ .20 미만</td><td>🔴 변별력이 매우 낮은 문항</td></tr>
-            <tr><td>.20 이상 ~ .30 미만</td><td>🟡 변별력이 낮은 문항</td></tr>
-            <tr><td>.30 이상 ~ .40 미만</td><td>🟢 변별력이 있는 문항</td></tr>
-            <tr><td style="font-weight:800;color:var(--teal);">.40 이상</td><td style="font-weight:800;color:var(--teal);">⭐ 변별력이 높은 문항</td></tr>
+            <tr class="ebel-row" data-min="0"    data-max="0.10"><td>.10 미만</td><td>❌ 변별력이 없는 문항</td></tr>
+            <tr class="ebel-row" data-min="0.10" data-max="0.20"><td>.10 이상 ~ .20 미만</td><td>🔴 변별력이 매우 낮은 문항</td></tr>
+            <tr class="ebel-row" data-min="0.20" data-max="0.30"><td>.20 이상 ~ .30 미만</td><td>🟡 변별력이 낮은 문항</td></tr>
+            <tr class="ebel-row" data-min="0.30" data-max="0.40"><td>.30 이상 ~ .40 미만</td><td>🟢 변별력이 있는 문항</td></tr>
+            <tr class="ebel-row" data-min="0.40" data-max="1.01"><td style="font-weight:800;color:var(--teal);">.40 이상</td><td style="font-weight:800;color:var(--teal);">⭐ 변별력이 높은 문항</td></tr>
           </tbody>
         </table>
+        <p style="font-size:.74rem;color:var(--soft);margin-top:.5rem;">💡 위 표는 계산 결과에 따라 자동으로 해당 행이 하이라이트됩니다</p>
       </div>
-      <div>
+      <div class="r from-right">
         <span class="label" style="margin-bottom:.8rem;">📊 예시</span>
-        <div style="display:flex;flex-direction:column;gap:.6rem;">
-          <div class="bar-row" style="flex-wrap:wrap;gap:.5rem;">
-            <div class="bar-name" style="width:100%;font-size:.8rem;color:var(--navy);">🏆 Case A (양질 문항)</div>
-            <div class="bar-bg" style="flex:1;min-width:120px;"><div class="bar-fill fill-teal" style="width:53%">r = 0.53</div></div>
-            <div class="bar-hint" style="width:100%;font-size:.75rem;">상위권 득점 집중의 이상적 구조</div>
+        <div class="bar-group" id="barGroup">
+          <div class="bar-item">
+            <div class="bar-label-row">
+              <span class="bar-name">🏆 Case A (양질 문항)</span>
+              <span class="bar-val" style="color:var(--teal);">r = 0.53</span>
+            </div>
+            <div class="bar-bg"><div class="bar-fill fill-teal" style="--w:53%"></div></div>
+            <div class="bar-hint">상위권 득점 집중의 이상적 구조</div>
           </div>
-          <div class="bar-row" style="flex-wrap:wrap;gap:.5rem;">
-            <div class="bar-name" style="width:100%;font-size:.8rem;color:var(--navy);">👍 Case B (보통 문항)</div>
-            <div class="bar-bg" style="flex:1;min-width:120px;"><div class="bar-fill fill-yellow" style="width:32%">r = 0.32</div></div>
-            <div class="bar-hint" style="width:100%;font-size:.75rem;">무난하게 활용 가능한 수준</div>
+          <div class="bar-item">
+            <div class="bar-label-row">
+              <span class="bar-name">👍 Case B (보통 문항)</span>
+              <span class="bar-val" style="color:#c07020;">r = 0.32</span>
+            </div>
+            <div class="bar-bg"><div class="bar-fill fill-yellow" style="--w:32%"></div></div>
+            <div class="bar-hint">무난하게 활용 가능한 수준</div>
           </div>
-          <div class="bar-row" style="flex-wrap:wrap;gap:.5rem;">
-            <div class="bar-name" style="width:100%;font-size:.8rem;color:var(--navy);">⚠️ Case C (불량 문항)</div>
-            <div class="bar-bg" style="flex:1;min-width:120px;"><div class="bar-fill fill-coral" style="width:8%">r=0.08</div></div>
-            <div class="bar-hint" style="width:100%;font-size:.75rem;">실력과 무관, 운에 의해 정답 발생</div>
+          <div class="bar-item">
+            <div class="bar-label-row">
+              <span class="bar-name">⚠️ Case C (불량 문항)</span>
+              <span class="bar-val" style="color:var(--coral);">r = 0.08</span>
+            </div>
+            <div class="bar-bg"><div class="bar-fill fill-coral" style="--w:8%"></div></div>
+            <div class="bar-hint">실력과 무관, 운에 의해 정답 발생</div>
           </div>
         </div>
       </div>
@@ -483,24 +650,19 @@
 <section class="sec alt">
   <div class="wrap">
     <div class="sec-title r">🎲 문항추측도: 운이 실력을 이길 확률</div>
-    <div class="g2 r">
-      <div>
+    <div class="g2">
+      <div class="r from-left">
         <p class="body">문제를 전혀 모르는 학생이 찍어서 맞힐 확률입니다. <strong>5지선다형의 기본 추측 확률은 0.20</strong>입니다.</p>
-        <p class="body" style="margin-top:.8rem;">문항 분석 결과 추측도가 0.20을 크게 웃돈다면, 선택지에 함정이 없거나 답이 너무 뻔하게 보여 <strong>평가 도구로서의 기능이 상실</strong>된 것입니다.</p>
+        <p class="body" style="margin-top:.7rem;">추측도가 0.20을 크게 웃돈다면 선택지에 함정이 없거나 답이 너무 뻔하게 보여 <strong>평가 도구로서의 기능이 상실</strong>된 것입니다.</p>
         <div class="info-box">🎯 "추측도가 높을수록 실력이 아닌 운이 점수를 결정합니다."</div>
       </div>
-      <div>
+      <div class="r from-right">
         <div class="formula-wrap">
           <div class="eq-line">
             <span>P<sub>GR</sub> =</span>
-            <span class="frac">
-              <span class="num">W / (K−1)</span>
-              <span class="den">N</span>
-            </span>
+            <span class="frac"><span class="num">W / (K−1)</span><span class="den">N</span></span>
           </div>
-          <div class="notes" style="margin-top:.8rem;text-align:center;">
-            P<sub>GR</sub>: 문항추측도 &nbsp;|&nbsp; W: 오답자수 &nbsp;|&nbsp; K: 선택지 수 &nbsp;|&nbsp; N: 전체 피험자수
-          </div>
+          <div class="notes">P<sub>GR</sub>: 문항추측도 | W: 오답자수 | K: 선택지 수 | N: 전체 피험자수</div>
         </div>
       </div>
     </div>
@@ -511,46 +673,43 @@
 <section class="sec">
   <div class="wrap">
     <div class="sec-title r">🎭 오답지 매력도 분석: "유혹의 기술"</div>
-    <div class="g2 r">
-      <div>
+    <div class="g2">
+      <div class="r from-left">
         <span class="label">🤔 매력적인 오답이 왜 필수적인가?</span>
-        <p class="body">어설프게 공부한 학생이 <strong>'이게 정답 아닐까?'</strong> 하고 고개를 갸우뚱하며 선택하도록 유도하는 오답지가 존재해야 문항의 종합적 품질이 극대화됩니다.</p>
-        <p class="body" style="margin-top:.8rem;">만약 모든 오답지의 선택 비율이 0%에 가깝다면, 이는 <strong>정답을 거저 주는 것</strong>과 다름없어 시험 본연의 가치를 잃게 만듭니다.</p>
-        <div class="formula-wrap" style="margin-top:1.2rem;">
+        <p class="body">어설프게 공부한 학생이 <strong>'이게 정답 아닐까?'</strong> 하고 선택하도록 유도하는 오답지가 존재해야 문항의 종합적 품질이 극대화됩니다.</p>
+        <p class="body" style="margin-top:.7rem;">모든 오답지의 선택 비율이 0%에 가깝다면 이는 <strong>정답을 거저 주는 것</strong>과 다름없어 시험 본연의 가치를 잃게 만듭니다.</p>
+        <div class="formula-wrap" style="margin-top:1rem;">
           <div class="eq-line">
             <span>P₀ =</span>
-            <span class="frac">
-              <span class="num">1 − P</span>
-              <span class="den">K − 1</span>
-            </span>
+            <span class="frac"><span class="num">1 − P</span><span class="den">K − 1</span></span>
           </div>
-          <div class="notes" style="margin-top:.6rem;text-align:center;">P₀: 답지 선택확률 &nbsp;|&nbsp; P: 문항난이도 &nbsp;|&nbsp; K: 답지의 수</div>
+          <div class="notes">P₀: 답지 선택확률 | P: 문항난이도 | K: 답지의 수</div>
         </div>
       </div>
-      <div>
+      <div class="r from-right" id="distractorGroup">
         <span class="label">📝 선택 답지 분석</span>
         <div class="dist-row">
           <div class="dist-num">①</div>
           <div class="dist-pct">.05</div>
-          <div class="dist-bar-bg"><div class="dist-bar-fill" style="width:5%"></div></div>
-          <div class="dist-note">😐 매력 없음 (틀린 지문 티 남)</div>
+          <div class="dist-bar-bg"><div class="dist-bar-fill" style="--w:5%"></div></div>
+          <div class="dist-note">😐 매력 없음 (티 너무 남)</div>
         </div>
         <div class="dist-row" style="background:#f0fffe;border-color:#a7f3d0;">
           <div class="dist-num ans">②</div>
           <div class="dist-pct" style="color:var(--teal)">.45</div>
-          <div class="dist-bar-bg"><div class="dist-bar-fill ans" style="width:45%"></div></div>
+          <div class="dist-bar-bg"><div class="dist-bar-fill ans" style="--w:45%"></div></div>
           <div class="dist-note">✅ 이상적 난이도 · <strong>정답</strong></div>
         </div>
         <div class="dist-row" style="background:#fffbee;border-color:#fcd34d;">
           <div class="dist-num hot">③</div>
           <div class="dist-pct" style="color:#c07020">.32</div>
-          <div class="dist-bar-bg"><div class="dist-bar-fill hot" style="width:32%"></div></div>
-          <div class="dist-note">🔥 <strong>매우 강력한 오답</strong> (유혹적)</div>
+          <div class="dist-bar-bg"><div class="dist-bar-fill hot" style="--w:32%"></div></div>
+          <div class="dist-note">🔥 <strong>매우 강력한 오답</strong></div>
         </div>
         <div class="dist-row">
           <div class="dist-num">④</div>
           <div class="dist-pct">.18</div>
-          <div class="dist-bar-bg"><div class="dist-bar-fill" style="width:18%"></div></div>
+          <div class="dist-bar-bg"><div class="dist-bar-fill" style="--w:18%"></div></div>
           <div class="dist-note">👌 보통의 유혹력</div>
         </div>
       </div>
@@ -562,52 +721,46 @@
 <section class="sec alt">
   <div class="wrap">
     <div class="sec-title r">🗺️ 문항반응분포: 보기별 응답의 지도</div>
-    <div class="g2 r">
-      <div>
+    <div class="g2">
+      <div class="r from-left">
         <span class="label">🧭 정답의 구실과 오답의 매력</span>
-        <p class="body">피험자들이 각 답지에 반응하는 정도를 분석합니다. 오답이 적절히 유혹하고 있는지, 정답으로 실력자를 잘 끌어당기는지 확인하는 과정입니다.</p>
+        <p class="body">피험자들이 각 답지에 반응하는 정도를 분석합니다. 오답이 적절히 유혹하고, 정답으로 실력자를 잘 끌어당기는지 확인하는 과정입니다.</p>
         <div class="info-box">
           <strong>🍽️ 균형 잡힌 뷔페 메뉴</strong><br>
           손님(학생)이 메인 요리(정답)와 반찬(오답)을 골고루 집어가고 있는지 확인<br>
           ⇒ 아무도 안 찾는 메뉴는 폐기 대상 🗑️
         </div>
-        <p class="body" style="margin-top:1rem;"><strong>❓ Q. 가장 문항반응 분포가 적절한 것은?</strong><br>
-        <span style="font-size:.83rem;color:var(--soft);">→ 정답이 구분되면서 오답도 골고루 선택된 <strong>문항 1</strong>이 이상적! ✅</span></p>
+        <p class="body" style="margin-top:.8rem;"><strong>❓ 가장 문항반응 분포가 적절한 것은?</strong><br>
+        <span style="font-size:.82rem;color:var(--soft);">→ 정답이 구분되면서 오답도 골고루 선택된 <strong>문항 1</strong>이 이상적! ✅</span></p>
       </div>
-      <div>
+      <div class="r from-right">
         <div class="g3">
           <div>
-            <p style="font-weight:800;font-size:.79rem;text-align:center;margin-bottom:.5rem;">✅ 문항 1</p>
-            <table class="rt">
-              <thead><tr><th>답지</th><th>반응자</th></tr></thead>
-              <tbody>
-                <tr><td>①</td><td>20</td></tr><tr><td>②</td><td>18</td></tr><tr><td>③</td><td>16</td></tr>
-                <tr><td class="ans">④정답</td><td class="ans">50</td></tr><tr><td>⑤</td><td>16</td></tr>
-                <tr><td colspan="2" style="font-weight:800;">120</td></tr>
-              </tbody>
-            </table>
+            <p style="font-weight:800;font-size:.78rem;text-align:center;margin-bottom:.4rem;">✅ 문항 1</p>
+            <table class="rt"><thead><tr><th>답지</th><th>반응</th></tr></thead>
+            <tbody>
+              <tr><td>①</td><td>20</td></tr><tr><td>②</td><td>18</td></tr><tr><td>③</td><td>16</td></tr>
+              <tr><td class="ans">④정답</td><td class="ans">50</td></tr><tr><td>⑤</td><td>16</td></tr>
+              <tr><td colspan="2" style="font-weight:800;">120</td></tr>
+            </tbody></table>
           </div>
           <div>
-            <p style="font-weight:800;font-size:.79rem;text-align:center;margin-bottom:.5rem;">⚠️ 문항 2</p>
-            <table class="rt">
-              <thead><tr><th>답지</th><th>반응자</th></tr></thead>
-              <tbody>
-                <tr><td>①</td><td>20</td></tr><tr><td class="ans">②정답</td><td class="ans">15</td></tr>
-                <tr><td class="odd">③</td><td class="odd">63</td></tr><tr><td>④</td><td>12</td></tr><tr><td>⑤</td><td>10</td></tr>
-                <tr><td colspan="2" style="font-weight:800;">120</td></tr>
-              </tbody>
-            </table>
+            <p style="font-weight:800;font-size:.78rem;text-align:center;margin-bottom:.4rem;">⚠️ 문항 2</p>
+            <table class="rt"><thead><tr><th>답지</th><th>반응</th></tr></thead>
+            <tbody>
+              <tr><td>①</td><td>20</td></tr><tr><td class="ans">②정답</td><td class="ans">15</td></tr>
+              <tr><td class="odd">③</td><td class="odd">63</td></tr><tr><td>④</td><td>12</td></tr><tr><td>⑤</td><td>10</td></tr>
+              <tr><td colspan="2" style="font-weight:800;">120</td></tr>
+            </tbody></table>
           </div>
           <div>
-            <p style="font-weight:800;font-size:.79rem;text-align:center;margin-bottom:.5rem;">⚠️ 문항 3</p>
-            <table class="rt">
-              <thead><tr><th>답지</th><th>반응자</th></tr></thead>
-              <tbody>
-                <tr><td>①</td><td>3</td></tr><tr><td>②</td><td>23</td></tr>
-                <tr><td class="ans">③정답</td><td class="ans">90</td></tr><tr><td>④</td><td>2</td></tr><tr><td>⑤</td><td>2</td></tr>
-                <tr><td colspan="2" style="font-weight:800;">120</td></tr>
-              </tbody>
-            </table>
+            <p style="font-weight:800;font-size:.78rem;text-align:center;margin-bottom:.4rem;">⚠️ 문항 3</p>
+            <table class="rt"><thead><tr><th>답지</th><th>반응</th></tr></thead>
+            <tbody>
+              <tr><td>①</td><td>3</td></tr><tr><td>②</td><td>23</td></tr>
+              <tr><td class="ans">③정답</td><td class="ans">90</td></tr><tr><td>④</td><td>2</td></tr><tr><td>⑤</td><td>2</td></tr>
+              <tr><td colspan="2" style="font-weight:800;">120</td></tr>
+            </tbody></table>
           </div>
         </div>
       </div>
@@ -620,58 +773,49 @@
   <div class="wrap">
     <div class="sec-title r">⚡ 고전검사이론의 치명적 한계</div>
     <div class="r">
-      <p style="color:var(--yellow);font-weight:800;font-size:.88rem;margin-bottom:.4rem;">📌 추정 및 계산의 용이성</p>
-      <p style="color:rgba(255,255,255,.75);font-size:.88rem;line-height:1.8;margin-bottom:.3rem;">산출 공식이 직관적이며 인간이 손쉽게 계산 가능합니다.</p>
-      <p style="color:rgba(255,255,255,.75);font-size:.88rem;line-height:1.8;margin-bottom:1.2rem;">이는 문항모수의 불변성과 피험자 능력의 불변성을 이론적으로 가정함으로써 확보된 실무적 편리함입니다.</p>
-
-      <p style="color:var(--yellow);font-weight:800;font-size:.88rem;margin-bottom:1rem;">🔄 측정 도구와 대상이 서로 얽혀 수치가 자꾸 변하는 왜곡 현상</p>
+      <p style="color:var(--yellow);font-weight:800;font-size:.87rem;margin-bottom:.3rem;">📌 추정 및 계산의 용이성</p>
+      <p style="color:rgba(255,255,255,.75);font-size:.87rem;line-height:1.85;margin-bottom:.3rem;">산출 공식이 직관적이며 인간이 손쉽게 계산 가능합니다.</p>
+      <p style="color:rgba(255,255,255,.75);font-size:.87rem;line-height:1.85;margin-bottom:1.2rem;">이는 문항모수의 불변성과 피험자 능력의 불변성을 이론적으로 가정함으로써 확보된 실무적 편리함입니다.</p>
+      <p style="color:var(--yellow);font-weight:800;font-size:.87rem;margin-bottom:1rem;">🔄 측정 도구와 대상이 서로 얽혀 수치가 자꾸 변하는 왜곡 현상</p>
       <div class="limit-grid">
-        <div class="limit-card">
-          <h4>👥 1. 집단 의존성</h4>
-          <ul>
-            <li>공부를 잘하는 집단이 보면 난이도가 '낮게(쉽게)' 계산됩니다.</li>
-            <li>공부가 부족한 집단이 보면 동일한 문제도 난이도가 '높게' 왜곡됩니다.</li>
-          </ul>
-        </div>
-        <div class="limit-card">
-          <h4>📝 2. 검사 의존성</h4>
-          <ul>
-            <li>시험지가 매우 쉽게 출제되면 학생 능력치가 과도하게 '높게' 추정됩니다.</li>
-            <li>킬러 문항이 많으면 학생의 진짜 실력이 낮게 가려집니다.</li>
-          </ul>
-        </div>
-        <div class="limit-card">
-          <h4>🎯 3. 정확성 결여</h4>
-          <ul>
-            <li>쉬운 문제만 맞혀 80점 vs 킬러 문항 맞혀 80점 — 실력은 분명 다릅니다.</li>
-            <li>이 이론은 총점만 보기 때문에 두 학생이 같다고 잘못 평가합니다.</li>
-          </ul>
-        </div>
+        <div class="limit-card r"><h4>👥 1. 집단 의존성</h4><ul>
+          <li>공부를 잘하는 집단이 보면 난이도가 '낮게(쉽게)' 계산됩니다.</li>
+          <li>공부가 부족한 집단이 보면 동일한 문제도 난이도가 '높게' 왜곡됩니다.</li>
+        </ul></div>
+        <div class="limit-card r"><h4>📝 2. 검사 의존성</h4><ul>
+          <li>시험지가 매우 쉽게 출제되면 학생 능력치가 과도하게 '높게' 추정됩니다.</li>
+          <li>킬러 문항이 많으면 학생의 진짜 실력이 낮게 가려집니다.</li>
+        </ul></div>
+        <div class="limit-card r"><h4>🎯 3. 정확성 결여</h4><ul>
+          <li>쉬운 문제만 맞혀 80점 vs 킬러 문항 맞혀 80점 — 실력은 분명 다릅니다.</li>
+          <li>총점만 보기 때문에 두 학생이 같다고 잘못 평가합니다.</li>
+        </ul></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ PART 03 ═══════════════ -->
+<!-- ═══ PART 03 ═══ -->
 <div class="part p3" id="irt">
+  <span class="part-num">03</span>
   <h2>🔬 Part 03. 문항반응이론</h2>
   <p>"흔들리지 않는 고유한 측정의 과학"</p>
 </div>
 
-<!-- IRT 정의 -->
+<!-- 정의 -->
 <section class="sec alt">
   <div class="wrap">
     <div class="sec-title r">📖 문항반응이론이란?</div>
-    <div class="g2 r">
-      <div>
+    <div class="g2">
+      <div class="r from-left">
         <span class="label">🔑 정의</span>
         <p class="body">문항반응이론(Item Response Theory)은 <strong>피험자가 문항에 정반응할 확률을 문항 특성 및 능력의 함수로 기술하는 통계이론</strong>입니다.</p>
-        <p class="body" style="margin-top:.8rem;">고전검사이론처럼 검사 총점에 의해 검사 또는 문항이 분석되는 이론이 아니라, <strong>문항 하나 하나의 독특한 특성을 지닌 고유한 문항특성곡선(Item Characteristic Curve, ICC)</strong>에 의해 분석된다는 이론입니다.</p>
-        <p class="body" style="margin-top:.8rem;">나이가 능력과 항상 비례하는 것이라 할 수 없으므로 나이 대신 <strong>피험자 능력으로 치환한 곡선</strong>을 문항특성곡선이라 합니다.</p>
+        <p class="body" style="margin-top:.7rem;">고전검사이론처럼 검사 총점에 의해 분석되는 이론이 아니라, <strong>문항 하나하나의 독특한 특성을 지닌 고유한 문항특성곡선(ICC)</strong>에 의해 분석됩니다.</p>
+        <p class="body" style="margin-top:.7rem;">나이가 능력과 항상 비례하는 것이라 할 수 없으므로 나이 대신 <strong>피험자 능력으로 치환한 곡선</strong>을 문항특성곡선이라 합니다.</p>
       </div>
-      <div>
+      <div class="r from-right">
         <div class="scale-box">
-          <div class="icon">📈</div>
+          <span class="icon">📈</span>
           <p><strong>문항특성곡선(ICC)이란?</strong></p>
           <p style="margin-top:.6rem;">피험자의 능력(θ)과 문항에 정답할 확률(P) 사이의 관계를 S자형 곡선으로 나타낸 것입니다.</p>
           <p style="margin-top:.6rem;">능력이 높을수록 정답 확률이 높아지며, 각 문항마다 고유한 곡선 형태를 가집니다.</p>
@@ -681,43 +825,37 @@
   </div>
 </section>
 
-<!-- IRT 패러다임 -->
+<!-- 패러다임 시프트 -->
 <section class="sec">
   <div class="wrap">
     <div class="sec-title r">🔄 문항반응이론의 패러다임 시프트</div>
-    <div class="g2 r">
-      <div>
+    <div class="g2">
+      <div class="r from-left">
         <span class="label">💡 총점 중심 → 문항 응답 반응 중심</span>
         <p class="body">문항반응이론은 피험자의 고유한 능력치와 문항이 가지는 고유 특성을 완전히 독립적으로 분리하여 확률적 모형으로 계산해 냅니다.</p>
         <div class="irt-feat">
-          <div class="irt-card">
-            <h4>📌 문항 특성의 불변성</h4>
-            <p class="body" style="font-size:.85rem;">어떤 학생 집단이 시험을 치르더라도 해당 문항의 고유 난이도는 변하지 않고 유지됩니다.</p>
-          </div>
-          <div class="irt-card">
-            <h4>🧑‍🎓 피험자 능력의 불변성</h4>
-            <p class="body" style="font-size:.85rem;">어떤 난이도의 시험지를 풀더라도 응시자의 진짜 실력 지표는 왜곡 없이 일정하게 추정됩니다.</p>
-          </div>
+          <div class="irt-card r"><h4>📌 문항 특성의 불변성</h4><p class="body" style="font-size:.84rem;">어떤 학생 집단이 시험을 치르더라도 해당 문항의 고유 난이도는 변하지 않고 유지됩니다.</p></div>
+          <div class="irt-card r"><h4>🧑‍🎓 피험자 능력의 불변성</h4><p class="body" style="font-size:.84rem;">어떤 난이도의 시험지를 풀더라도 응시자의 진짜 실력 지표는 왜곡 없이 일정하게 추정됩니다.</p></div>
         </div>
       </div>
-      <div>
+      <div class="r from-right">
         <div class="scale-box">
-          <div class="icon">⚖️</div>
+          <span class="icon">⚖️</span>
           <p><strong>직관적 체중계 비유:</strong></p>
           <p>정밀한 체중계는 내가 어떤 장소에서 몸무게를 재든 항상 동일한 절대값을 나타냅니다.</p>
-          <p style="margin-top:.8rem;">시험지의 구성이나 타인의 실력에 내 실력 지표가 간섭받지 않도록 수학적으로 완벽히 보정하는 구조입니다.</p>
+          <p style="margin-top:.6rem;">시험지의 구성이나 타인의 실력에 내 실력 지표가 간섭받지 않도록 수학적으로 완벽히 보정하는 구조입니다.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- IRT 등장배경 -->
+<!-- 등장배경 -->
 <section class="sec alt">
   <div class="wrap">
     <div class="sec-title r">📅 문항반응이론의 등장배경</div>
     <div class="tl-wrap r">
-      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1916, Binet & Simon</div><div class="tl-desc">📊 문항특성곡선의 시작 — 6번, 41번, 65번 문항 분석, 정답비율 0.75 기준 적용</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1916, Binet &amp; Simon</div><div class="tl-desc">📊 문항특성곡선의 시작 — 6번, 41번, 65번 문항 분석, 정답비율 0.75 기준 적용</div></div>
       <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1800년대 중반</div><div class="tl-desc">🌱 생물학에서의 연구 — 동/식물의 성장 파악 <span class="tl-hl">(로지스틱 함수)</span></div></div>
       <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1936, Richardson</div><div class="tl-desc">🔗 CTT와 문항반응이론의 문항특성 추정의 관계 증명</div></div>
       <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1943, Lawley</div><div class="tl-desc">🔢 고전검사이론과 문항반응이론의 관계 재정립 + 문항특성 추정의 수리적 모형과 방법 제시 <span class="tl-hl">(최대우도추정법: Maximum likelihood estimation)</span></div></div>
@@ -732,101 +870,70 @@
   </div>
 </section>
 
-<!-- IRT 대전제 1 -->
+<!-- 기본가정 1 -->
 <section class="sec">
   <div class="wrap">
     <div class="sec-title r">1️⃣ 기본가정 1: 일차원성 가정</div>
     <div class="premise r">
       <h4>🎯 오직 하나의 지배적인 능력만 투명하게 측정하라</h4>
       <p class="body">문항반응이론의 고도화된 수학 모형이 깨지지 않으려면, 하나의 검사 또는 하나의 문항이 인간이 가진 여러 능력 중 오직 <strong>'단 하나의 잠재적 능력(Trait)'</strong>만 측정하고 있어야 한다는 규칙입니다.</p>
-      <p class="body" style="margin-top:.8rem;font-size:.85rem;color:var(--soft);">
-        참고로 인간의 인지적·정의적 행동특성은 측정이 불가능한 <strong>잠재적 특성</strong>(동기, 시험불안 등)을 포함합니다. 검사 시에는 현실적으로 여러 잠재적 특성이 개입될 수 있으므로, 일차원성 가정에서는 이를 배제하고 검사 구성 항목만을 기준으로 합니다.
-      </p>
-      <div class="alert red" style="margin-top:1.2rem;">
-        <strong>❌ 가정을 위배하는 실제 실패 사례:</strong><br>
-        초등학교 3학년 산수 시험인데, 지문에 <strong>'재화의 취득, 권리의 양도'</strong>와 같은 과도한 한자 어휘가 가득 섞여 출제되었습니다.<br>
-        아이가 계산 방법을 빤히 알고도 단어 뜻을 몰라 문제를 틀렸다면, 이는 산수 실력이 아니라 <strong>'국어 어휘력'을 간접 측정</strong>하게 된 것이므로 일차원성 가정을 정면으로 위배한 것입니다.
-      </div>
+      <p class="body" style="margin-top:.7rem;font-size:.84rem;color:var(--soft);">인간의 인지적·정의적 행동특성은 측정이 불가능한 <strong>잠재적 특성</strong>(동기, 시험불안 등)을 포함합니다. 검사 시에는 여러 잠재적 특성이 개입될 수 있으므로, 일차원성 가정에서는 이를 배제하고 검사 구성 항목만을 기준으로 합니다.</p>
+      <div class="alert red"><strong>❌ 가정을 위배하는 실제 실패 사례:</strong><br>초등학교 3학년 산수 시험인데, 지문에 <strong>'재화의 취득, 권리의 양도'</strong>와 같은 과도한 한자 어휘가 가득 섞여 출제되었습니다.<br>아이가 계산 방법을 빤히 알고도 단어 뜻을 몰라 문제를 틀렸다면, 이는 산수 실력이 아니라 <strong>'국어 어휘력'을 간접 측정</strong>하게 된 것이므로 일차원성 가정을 정면으로 위배한 것입니다.</div>
     </div>
   </div>
 </section>
 
-<!-- IRT 대전제 2 -->
+<!-- 기본가정 2 -->
 <section class="sec alt">
   <div class="wrap">
     <div class="sec-title r">2️⃣ 기본가정 2: 지역독립성 가정</div>
     <div class="premise r">
       <h4>🔗 문항과 문항 사이의 연쇄 효과 및 간섭 차단</h4>
       <p class="body">피험자의 능력 수준이 통제되었을 때, 어떤 특정한 문제를 맞히거나 틀린 결과가 그 뒤에 이어지는 다른 문제를 푸는 데 어떠한 수학적·확률적 영향도 주지 않고 완전히 독립적이어야 한다는 가정입니다.</p>
-      <p class="body" style="margin-top:.8rem;font-size:.85rem;color:var(--soft);">
-        통계적으로 말하면 <strong>a문항을 맞힐 확률과 b문항을 맞힐 확률은 상호 독립적</strong>이라는 뜻이며, 한 문항의 내용이 다른 문항의 정답의 단서가 되지 않아야 한다는 것도 내포합니다.
-      </p>
-      <div class="alert amber" style="margin-top:1.2rem;">
-        <strong>⚠️ 일상적인 위배 예시:</strong><br>
-        역사 시험에서 <strong>[4번 문항: 조선을 건국한 이성계의 아들이자 3대 왕은 누구인가? (정답: 이방원)]</strong>이 출제되었습니다.<br>
-        그런데 바로 뒤의 <strong>[5번 문항: 앞의 문제 정답인 이방원이 왕위에 오른 뒤 실시한 정책으로 옳은 것은?]</strong>이 나왔다면, 5번 지문이 4번의 완벽한 정답 힌트가 되므로 지역독립성이 상실됩니다.
-      </div>
+      <p class="body" style="margin-top:.7rem;font-size:.84rem;color:var(--soft);">통계적으로 말하면 <strong>a문항을 맞힐 확률과 b문항을 맞힐 확률은 상호 독립적</strong>이라는 뜻이며, 한 문항의 내용이 다른 문항의 정답의 단서가 되지 않아야 한다는 것도 내포합니다.</p>
+      <div class="alert amber"><strong>⚠️ 일상적인 위배 예시:</strong><br>역사 시험에서 <strong>[4번 문항: 조선을 건국한 이성계의 아들이자 3대 왕은 누구인가? (정답: 이방원)]</strong>이 출제되었습니다.<br>그런데 바로 뒤의 <strong>[5번 문항: 앞의 문제 정답인 이방원이 왕위에 오른 뒤 실시한 정책으로 옳은 것은?]</strong>이 나왔다면, 5번 지문이 4번의 완벽한 정답 힌트가 되므로 지역독립성이 상실됩니다.</div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ 문항반응이론 요약 ═══════════════ -->
+<!-- 핵심 요약 -->
 <section class="sec dark">
   <div class="wrap">
     <div class="sec-title r">📝 문항반응이론 핵심 요약</div>
     <div class="r">
-      <p class="body" style="margin-bottom:1.5rem;">지금까지 학습한 문항반응이론의 핵심 내용을 한눈에 정리합니다.</p>
-
+      <p class="body" style="margin-bottom:1.2rem;">지금까지 학습한 문항반응이론의 핵심 내용을 한눈에 정리합니다.</p>
       <div class="summary-grid">
-        <!-- 정의 -->
-        <div class="sum-card sum-teal">
-          <h4>📖 정의</h4>
-          <ul>
-            <li>피험자가 문항에 정반응할 확률을 문항특성 및 능력의 함수로 기술하는 통계이론</li>
-            <li>문항 하나하나의 고유한 문항특성곡선(ICC)으로 분석</li>
-            <li>총점이 아닌 문항 응답 반응 중심의 분석 체계</li>
-            <li>피험자 능력(θ)과 정답 확률(P)의 관계를 S자형 곡선으로 표현</li>
-          </ul>
-        </div>
-        <!-- 등장배경 -->
-        <div class="sum-card sum-purple">
-          <h4>📅 등장배경 핵심 흐름</h4>
-          <ul>
-            <li>1916 Binet & Simon → 문항특성곡선의 시작</li>
-            <li>1943 Lawley → 최대우도추정법 제시</li>
-            <li>1946 Tucker → ICC 용어 등장</li>
-            <li>1958 Birnbaum → 로지스틱함수 도입</li>
-            <li>1960 Rasch → 1-모수 모형 보급</li>
-            <li>1980s~ → 1~3모수 프로그램 개발·보급</li>
-          </ul>
-        </div>
-        <!-- 기본가정 -->
-        <div class="sum-card sum-coral">
-          <h4>⚙️ 두 가지 기본가정</h4>
-          <ul>
-            <li><strong>일차원성 가정</strong>: 하나의 검사는 오직 하나의 잠재적 능력만 측정해야 함</li>
-            <li>위반 사례: 수리 시험에 어려운 어휘 혼입 → 어휘력까지 측정</li>
-            <li><strong>지역독립성 가정</strong>: 문항 간 응답은 서로 독립적이어야 함</li>
-            <li>위반 사례: 앞 문항의 정답이 뒷 문항의 힌트가 되는 경우</li>
-          </ul>
-        </div>
-        <!-- 고전검사이론 vs 문항반응이론 -->
-        <div class="sum-card sum-yellow">
-          <h4>⚖️ CTT vs 문항반응이론 비교</h4>
-          <ul>
-            <li><strong>CTT</strong>: 검사 총점 기반, 집단·검사 의존성 존재</li>
-            <li><strong>문항반응이론</strong>: 문항특성곡선 기반, 불변성 확보</li>
-            <li>문항반응이론의 장점: 문항 특성의 불변성</li>
-            <li>문항반응이론의 장점: 피험자 능력의 불변성</li>
-            <li>문항반응이론의 장점: 정확한 개인 능력 추정 가능</li>
-          </ul>
-        </div>
+        <div class="sum-card sum-teal r scale-in"><h4>📖 정의</h4><ul>
+          <li>피험자가 문항에 정반응할 확률을 문항특성 및 능력의 함수로 기술하는 통계이론</li>
+          <li>문항 하나하나의 고유한 문항특성곡선(ICC)으로 분석</li>
+          <li>총점이 아닌 문항 응답 반응 중심의 분석 체계</li>
+          <li>피험자 능력(θ)과 정답 확률(P)의 관계를 S자형 곡선으로 표현</li>
+        </ul></div>
+        <div class="sum-card sum-purple r scale-in"><h4>📅 등장배경 핵심 흐름</h4><ul>
+          <li>1916 Binet &amp; Simon → 문항특성곡선의 시작</li>
+          <li>1943 Lawley → 최대우도추정법 제시</li>
+          <li>1946 Tucker → ICC 용어 등장</li>
+          <li>1958 Birnbaum → 로지스틱함수 도입</li>
+          <li>1960 Rasch → 1-모수 모형 보급</li>
+          <li>1980s~ → 1~3모수 프로그램 개발·보급</li>
+        </ul></div>
+        <div class="sum-card sum-coral r scale-in"><h4>⚙️ 두 가지 기본가정</h4><ul>
+          <li><strong>일차원성 가정</strong>: 하나의 검사는 오직 하나의 잠재적 능력만 측정해야 함</li>
+          <li>위반 사례: 수리 시험에 어려운 어휘 혼입 → 어휘력까지 측정</li>
+          <li><strong>지역독립성 가정</strong>: 문항 간 응답은 서로 독립적이어야 함</li>
+          <li>위반 사례: 앞 문항의 정답이 뒷 문항의 힌트가 되는 경우</li>
+        </ul></div>
+        <div class="sum-card sum-yellow r scale-in"><h4>⚖️ CTT vs 문항반응이론 비교</h4><ul>
+          <li><strong>CTT</strong>: 검사 총점 기반, 집단·검사 의존성 존재</li>
+          <li><strong>문항반응이론</strong>: 문항특성곡선 기반, 불변성 확보</li>
+          <li>문항반응이론의 장점: 문항 특성의 불변성</li>
+          <li>문항반응이론의 장점: 피험자 능력의 불변성</li>
+          <li>문항반응이론의 장점: 정확한 개인 능력 추정 가능</li>
+        </ul></div>
       </div>
-
-      <!-- 핵심 한 줄 요약 -->
-      <div style="margin-top:2rem;background:rgba(255,255,255,.08);border-radius:14px;padding:1.5rem 2rem;border:1.5px solid rgba(255,255,255,.12);text-align:center;">
-        <p style="color:var(--yellow);font-size:.75rem;font-weight:800;letter-spacing:.12em;margin-bottom:.6rem;">💡 CORE INSIGHT</p>
-        <p style="color:white;font-size:1rem;font-weight:800;line-height:1.7;">"문항반응이론은 검사 도구나 집단이 달라져도<br>흔들리지 않는 <span style="color:var(--teal2);">고유한 능력값</span>과 <span style="color:var(--yellow);">고유한 문항 특성값</span>을 분리해 내는 과학입니다."</p>
+      <div style="margin-top:1.8rem;background:rgba(255,255,255,.08);border-radius:14px;padding:1.4rem 1.8rem;border:2px solid rgba(255,255,255,.15);text-align:center;">
+        <p style="color:var(--yellow);font-size:.72rem;font-weight:800;letter-spacing:.12em;margin-bottom:.6rem;">💡 CORE INSIGHT</p>
+        <p style="color:white;font-size:.98rem;font-weight:800;line-height:1.8;">"문항반응이론은 검사 도구나 집단이 달라져도<br>흔들리지 않는 <span style="color:var(--teal2);">고유한 능력값</span>과 <span style="color:var(--yellow);">고유한 문항 특성값</span>을 분리해 내는 과학입니다."</p>
       </div>
     </div>
   </div>
@@ -847,120 +954,187 @@
 </footer>
 
 <script>
-  // ── Scroll reveal ──
-  const io = new IntersectionObserver(
-    e => e.forEach(x => { if(x.isIntersecting) x.target.classList.add('in'); }),
-    {threshold:0.08}
-  );
-  document.querySelectorAll('.r').forEach(el => io.observe(el));
+/* ══════════════════════════════════════════
+   HAMBURGER MENU
+══════════════════════════════════════════ */
+function closeMobileMenu(){
+  document.getElementById('hbg').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+document.getElementById('hbg').addEventListener('click',function(){
+  this.classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+});
 
-  // ── Raw data: rows = 10 persons, cols A-J (index 0-9), Y = total score ──
-  const rawData = [
-    // A  B  C  D  E  F  G  H  I  J   Y
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 10],
-    [0, 1, 1, 0, 0, 0, 1, 1, 1, 1,  6],
-    [1, 0, 0, 0, 0, 0, 0, 0, 1, 1,  3],
-    [1, 1, 1, 0, 0, 0, 1, 1, 1, 0,  6],
-    [1, 0, 0, 0, 1, 1, 1, 1, 1, 1,  7],
-    [1, 1, 1, 0, 0, 1, 1, 1, 1, 1,  8],
-    [0, 0, 0, 0, 0, 0, 1, 1, 1, 1,  4],
-    [0, 1, 1, 0, 0, 0, 0, 0, 0, 0,  2],
-    [1, 1, 1, 1, 1, 0, 0, 0, 0, 0,  5],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 0,  9],
-  ];
-  const colNames = ['A','B','C','D','E','F','G','H','I','J'];
+/* ══════════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════════ */
+const revealIO = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});
+},{threshold:0.07});
+document.querySelectorAll('.r').forEach(el=>revealIO.observe(el));
 
-  function getEbelLabel(r) {
-    const abs = Math.abs(r);
-    if (abs < 0.10) return { label:'변별력이 없는 문항', emoji:'❌', color:'#c0392b', cmp:'< .10' };
-    if (abs < 0.20) return { label:'변별력이 매우 낮은 문항', emoji:'🔴', color:'#e07030', cmp:'< .20' };
-    if (abs < 0.30) return { label:'변별력이 낮은 문항', emoji:'🟡', color:'#c08000', cmp:'< .30' };
-    if (abs < 0.40) return { label:'변별력이 있는 문항', emoji:'🟢', color:'#207040', cmp:'< .40' };
-    return { label:'변별력이 높은 문항', emoji:'⭐', color:'#0ea5b0', cmp:'> .40' };
-  }
-
-  function frac(num, den) {
-    return `<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .1em;">
-      <span style="border-bottom:2px solid var(--navy);padding-bottom:.1em;font-weight:800;">${num}</span>
-      <span style="padding-top:.1em;font-weight:800;">${den}</span>
-    </span>`;
-  }
-  function hl(txt, cls) { return `<span class="${cls}">${txt}</span>`; }
-
-  function calcR(colIdx) {
-    const N = rawData.length;
-    let sumX=0, sumY=0, sumXY=0, sumX2=0, sumY2=0;
-    rawData.forEach(row => {
-      const x = row[colIdx];
-      const y = row[10];
-      sumX  += x;
-      sumY  += y;
-      sumXY += x * y;
-      sumX2 += x * x;
-      sumY2 += y * y;
-    });
-    const num   = N * sumXY - sumX * sumY;
-    const denA  = N * sumX2 - sumX * sumX;
-    const denB  = N * sumY2 - sumY * sumY;
-    const den   = Math.sqrt(denA) * Math.sqrt(denB);
-    const r     = den === 0 ? 0 : num / den;
-
-    const name = colNames[colIdx];
-    const eb   = getEbelLabel(r);
-    const rFmt = r.toFixed(2).replace('0.', '.');
-
-    // Update label
-    document.getElementById('calc-label').textContent = `🧮 계산 풀이 (${name}번 문항 기준)`;
-
-    // Step 2 — substituted values
-    document.getElementById('calc-step2').innerHTML = `= ${frac(
-      `${hl(N,'hl-pink')}(${sumXY}) − (${hl(sumX,'hl-blue')})(${hl(sumY,'hl-green')})`,
-      `√[${hl(N,'hl-pink')}(${sumX2}) − ${hl(sumX,'hl-blue')}²] · √[${hl(N,'hl-pink')}(${sumY2}) − ${hl(sumY,'hl-green')}²]`
-    )}`;
-
-    // Step 3 — simplified
-    const s3num = N*sumXY - sumX*sumY;
-    const s3da  = N*sumX2 - sumX*sumX;
-    const s3db  = N*sumY2 - sumY*sumY;
-    document.getElementById('calc-step3').innerHTML = `= ${frac(s3num, `√${s3da} · √${s3db}`)} = ${frac(s3num.toFixed(2), `${Math.sqrt(s3da*s3db).toFixed(2)}`)}`;
-
-    // Result + badge
-    document.getElementById('calc-result').innerHTML = `✅ r = <strong style="color:${eb.color}">${rFmt}</strong>`;
-    const badge = document.getElementById('calc-badge');
-    badge.style.background = `linear-gradient(135deg, ${eb.color}, ${eb.color}cc)`;
-    badge.textContent = `${eb.emoji} ${rFmt} ${eb.cmp} → ${eb.label}`;
-
-    // Update XY and X² columns in table (cols index 11=XY, 12=X²)
-    const tbody = document.getElementById('dataTable').querySelector('tbody');
-    const dataRows = tbody.querySelectorAll('tr:not(.tr-s)');
-    let sigXY=0, sigX2=0;
-    dataRows.forEach((tr, i) => {
-      const x = rawData[i][colIdx];
-      const y = rawData[i][10];
-      const xy = x*y;
-      const x2 = x*x;
-      sigXY += xy; sigX2 += x2;
-      tr.cells[11].textContent = xy;
-      tr.cells[12].textContent = x2;
-    });
-    // Update sigma row
-    const sigRow = tbody.querySelector('.tr-s');
-    sigRow.cells[colIdx+1].style.background = 'rgba(14,165,176,.3)';
-    sigRow.cells[11].textContent = sigXY;
-    sigRow.cells[12].textContent = sigX2;
-
-    // Highlight active column header
-    document.querySelectorAll('.col-header').forEach((th,i) => {
-      th.style.background = i===colIdx ? '#06b6d4' : '';
-    });
-  }
-
-  // Attach click to column headers
-  document.querySelectorAll('.col-header').forEach(th => {
-    th.addEventListener('click', () => calcR(parseInt(th.dataset.col)));
-    th.addEventListener('mouseenter', () => { if(th.style.background==='') th.style.background='rgba(14,165,176,.3)'; });
-    th.addEventListener('mouseleave', () => { if(th.style.background==='rgba(14, 165, 176, 0.3)') th.style.background=''; });
+/* ══════════════════════════════════════════
+   ANIMATED BARS — trigger on scroll
+══════════════════════════════════════════ */
+const barIO = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.bar-fill').forEach(b=>{
+        b.style.width = b.style.getPropertyValue('--w') || b.getAttribute('style').match(/--w:([\d.]+%)/)?.[1] || '0%';
+      });
+      e.target.querySelectorAll('.dist-bar-fill').forEach(b=>{
+        const w = getComputedStyle(b).getPropertyValue('--w') || '0%';
+        b.style.width = w;
+      });
+      barIO.unobserve(e.target);
+    }
   });
+},{threshold:0.2});
+document.querySelectorAll('#barGroup,#distractorGroup').forEach(el=>barIO.observe(el));
+
+/* ══════════════════════════════════════════
+   RIPPLE EFFECT
+══════════════════════════════════════════ */
+document.querySelectorAll('.ripple-btn').forEach(btn=>{
+  btn.addEventListener('click',function(e){
+    const rect=this.getBoundingClientRect();
+    const c=document.createElement('span');
+    c.className='ripple-circle';
+    const size=Math.max(rect.width,rect.height)*2;
+    c.style.cssText=`width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`;
+    this.appendChild(c);
+    setTimeout(()=>c.remove(),600);
+  });
+});
+
+/* ══════════════════════════════════════════
+   R CALCULATION ENGINE
+══════════════════════════════════════════ */
+const rawData=[
+  [1,1,1,1,1,1,1,1,1,1,10],[0,1,1,0,0,0,1,1,1,1,6],
+  [1,0,0,0,0,0,0,0,1,1,3], [1,1,1,0,0,0,1,1,1,0,6],
+  [1,0,0,0,1,1,1,1,1,1,7], [1,1,1,0,0,1,1,1,1,1,8],
+  [0,0,0,0,0,0,1,1,1,1,4], [0,1,1,0,0,0,0,0,0,0,2],
+  [1,1,1,1,1,0,0,0,0,0,5], [1,1,1,1,1,1,1,1,1,0,9],
+];
+const colNames=['A','B','C','D','E','F','G','H','I','J'];
+
+function getEbel(r){
+  const a=Math.abs(r);
+  if(a<.10) return{label:'변별력이 없는 문항',emoji:'❌',color:'#c0392b',cmp:'< .10'};
+  if(a<.20) return{label:'변별력이 매우 낮은 문항',emoji:'🔴',color:'#e07030',cmp:'< .20'};
+  if(a<.30) return{label:'변별력이 낮은 문항',emoji:'🟡',color:'#c08000',cmp:'< .30'};
+  if(a<.40) return{label:'변별력이 있는 문항',emoji:'🟢',color:'#207040',cmp:'< .40'};
+  return{label:'변별력이 높은 문항',emoji:'⭐',color:'#0ea5b0',cmp:'> .40'};
+}
+function frac(n,d){
+  return `<span class="frac"><span class="num">${n}</span><span class="den">${d}</span></span>`;
+}
+function hl(t,c){return `<span class="${c}">${t}</span>`;}
+
+function calcR(colIdx){
+  const N=rawData.length;
+  let sX=0,sY=0,sXY=0,sX2=0,sY2=0;
+  rawData.forEach(row=>{sX+=row[colIdx];sY+=row[10];sXY+=row[colIdx]*row[10];sX2+=row[colIdx]*row[colIdx];sY2+=row[10]*row[10];});
+  const num=N*sXY-sX*sY, dA=N*sX2-sX*sX, dB=N*sY2-sY*sY;
+  const r=Math.sqrt(dA)*Math.sqrt(dB)===0?0:num/(Math.sqrt(dA)*Math.sqrt(dB));
+  const name=colNames[colIdx], eb=getEbel(r), rFmt=r.toFixed(2).replace('0.','.').replace('-0.','-.');
+
+  // flash animation on calc box
+  const box=document.getElementById('calc-box');
+  box.classList.add('calc-updating');
+  setTimeout(()=>box.classList.remove('calc-updating'),800);
+
+  // update label
+  document.getElementById('calc-label').textContent=`🧮 계산 풀이 (${name}번 문항 기준)`;
+
+  // step 2
+  document.getElementById('calc-step2').innerHTML=
+    `= ${frac(`${hl(N,'hl-pink')}(${sXY}) − (${hl(sX,'hl-blue')})(${hl(sY,'hl-green')})`,
+    `√[${hl(N,'hl-pink')}(${sX2}) − ${hl(sX,'hl-blue')}²] · √[${hl(N,'hl-pink')}(${sY2}) − ${hl(sY,'hl-green')}²]`)}`;
+
+  // step 3
+  const s3num=N*sXY-sX*sY, s3da=N*sX2-sX*sX, s3db=N*sY2-sY*sY;
+  document.getElementById('calc-step3').innerHTML=
+    `= ${frac(s3num,`√${s3da} · √${s3db}`)} = ${frac(s3num.toFixed(1),(Math.sqrt(s3da*s3db)).toFixed(1))}`;
+
+  // result
+  const res=document.getElementById('calc-result');
+  res.innerHTML=`✅ r = <strong style="color:${eb.color};font-size:1.3em;">${rFmt}</strong>`;
+  res.style.animation='none';requestAnimationFrame(()=>{res.style.animation='countUp .4s ease';});
+
+  // badge
+  const badge=document.getElementById('calc-badge');
+  badge.style.transition='background .4s';
+  badge.style.background=`linear-gradient(135deg,${eb.color},${eb.color}bb)`;
+  badge.textContent=`${eb.emoji} ${rFmt} ${eb.cmp} → ${eb.label}`;
+
+  // update table XY + X² columns
+  const tbody=document.getElementById('dataTable').querySelector('tbody');
+  const rows=tbody.querySelectorAll('tr:not(.tr-s)');
+  let sigXY=0,sigX2=0;
+  rows.forEach((tr,i)=>{
+    const x=rawData[i][colIdx],y=rawData[i][10],xy=x*y,x2=x*x;
+    sigXY+=xy;sigX2+=x2;
+    tr.cells[11].textContent=xy;tr.cells[12].textContent=x2;
+    // flash updated cells
+    [tr.cells[1+colIdx],tr.cells[11],tr.cells[12]].forEach(cell=>{
+      cell.style.transition='background .1s';
+      cell.style.background='rgba(14,165,176,.25)';
+      setTimeout(()=>{cell.style.background='';},600);
+    });
+  });
+  const sigRow=tbody.querySelector('.tr-s');
+  sigRow.cells[11].textContent=sigXY;sigRow.cells[12].textContent=sigX2;
+  sigRow.cells[colIdx+1].style.background='rgba(14,165,176,.35)';
+
+  // highlight selected col header
+  document.querySelectorAll('.col-header').forEach((th,i)=>{
+    th.classList.toggle('selected',i===colIdx);
+  });
+
+  // highlight matching Ebel row
+  const absR=Math.abs(r);
+  document.querySelectorAll('.ebel-row').forEach(row=>{
+    const min=parseFloat(row.dataset.min),max=parseFloat(row.dataset.max);
+    row.classList.toggle('match',absR>=min&&absR<max);
+  });
+}
+
+// attach col header clicks
+document.querySelectorAll('.col-header').forEach(th=>{
+  th.addEventListener('click',()=>calcR(parseInt(th.dataset.col)));
+});
+
+// initialise with col A
+calcR(0);
+
+/* ══════════════════════════════════════════
+   COUNTER ANIMATION (stat numbers)
+══════════════════════════════════════════ */
+function animateCount(el,target,duration=1200){
+  const start=performance.now();
+  const update=now=>{
+    const p=Math.min((now-start)/duration,1);
+    const ease=p<.5?2*p*p:-1+(4-2*p)*p;
+    el.textContent=Math.round(ease*target);
+    if(p<1)requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+}
+
+/* ══════════════════════════════════════════
+   NAV PROGRESS BAR
+══════════════════════════════════════════ */
+const prog=document.createElement('div');
+prog.style.cssText='position:fixed;top:54px;left:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--purple));z-index:301;transition:width .1s;width:0;';
+document.body.appendChild(prog);
+window.addEventListener('scroll',()=>{
+  const doc=document.documentElement;
+  const pct=(doc.scrollTop/(doc.scrollHeight-doc.clientHeight))*100;
+  prog.style.width=pct+'%';
+});
 </script>
 </body>
 </html>
