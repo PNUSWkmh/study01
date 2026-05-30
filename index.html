@@ -720,7 +720,6 @@ footer span{color:var(--teal2);}
       </div>
     </div>
   </div>
-</section>
 
 <script>
 const SC_DATA = {
@@ -855,13 +854,13 @@ document.addEventListener('DOMContentLoaded', ()=>runScenario('normal'));
         </div><!-- /formula-section-body -->
       </div><!-- /토글 wrapper -->
 
-      <!-- 구분선 + 다음 단계 안내 -->
-      <div style="text-align:center;padding:.8rem;background:rgba(14,165,176,.05);border-radius:10px;border:1px dashed rgba(14,165,176,.3);">
-        <p style="font-size:.8rem;font-weight:800;color:var(--teal);">👇 이제 실제 데이터로 직접 확인해보겠습니다</p>
-        <p style="font-size:.76rem;color:var(--soft);margin-top:.2rem;">A~J 버튼으로 문항을 선택하면 해당 문항의 r값이 자동 계산됩니다</p>
-      </div>
-
     </div><!-- /공식 직관적 이해 r div -->
+
+    <!-- 구분선 + 다음 단계 안내 -->
+    <div style="text-align:center;padding:.8rem;background:rgba(14,165,176,.05);border-radius:10px;border:1px dashed rgba(14,165,176,.3);margin-bottom:1.2rem;">
+      <p style="font-size:.8rem;font-weight:800;color:var(--teal);">👇 이제 실제 데이터로 직접 확인해보겠습니다</p>
+      <p style="font-size:.76rem;color:var(--soft);margin-top:.2rem;">A~J 버튼으로 문항을 선택하면 해당 문항의 r값이 자동 계산됩니다</p>
+    </div>
 
     <!-- 문항 선택 버튼 (모바일 친화) -->
     <div class="r" style="margin-top:1.2rem;">
@@ -888,18 +887,17 @@ document.addEventListener('DOMContentLoaded', ()=>runScenario('normal'));
     </style>
 
     <div class="g2 r">
-      <!-- 데이터 테이블 -->
       <div>
-        <div style="overflow:hidden;border-radius:10px;border:none;-webkit-overflow-scrolling:touch;">
-          <table id="dataTable" style="font-size:.78rem;min-width:0;width:100%;border-collapse:collapse;border-spacing:0;">
+        <div style="-webkit-overflow-scrolling:touch;border-radius:10px;overflow:hidden;border:none;">
+          <table id="dataTable" style="font-size:.78rem;min-width:340px;width:100%;border-collapse:collapse;border-spacing:0;">
             <thead>
               <tr>
-                <th style="min-width:42px;white-space:nowrap;border:none;">피험자<br><span style="color:var(--yellow);">N=10</span></th>
-                <th id="th-col" style="min-width:38px;background:#06b6d4;border:none;">문항<br><span id="th-col-name" style="color:var(--yellow);">A</span></th>
-                <th style="background:#0a6e7c;min-width:38px;border:none;"><span style="color:var(--yellow);">총점<br>(Y)</span></th>
-                <th style="background:#0a6e7c;color:#90e0ef;min-width:30px;border:none;">XY</th>
-                <th style="background:#0a6e7c;color:#ff9090;min-width:30px;border:none;">X²</th>
-                <th style="background:#0a6e7c;min-width:34px;border:none;">Y²</th>
+                <th style="min-width:42px;white-space:nowrap;background:var(--teal);padding:.6rem .5rem;">피험자<br><span style="color:var(--yellow);">N=10</span></th>
+                <th id="th-col" style="min-width:38px;background:#06b6d4;padding:.6rem .5rem;">문항<br><span id="th-col-name" style="color:var(--yellow);">A</span></th>
+                <th style="background:#0a6e7c;min-width:38px;padding:.6rem .5rem;"><span style="color:var(--yellow);">총점<br>(Y)</span></th>
+                <th style="background:#0a6e7c;color:#90e0ef;min-width:30px;padding:.6rem .5rem;">XY</th>
+                <th style="background:#0a6e7c;color:#ff9090;min-width:30px;padding:.6rem .5rem;">X²</th>
+                <th style="background:#0a6e7c;min-width:34px;padding:.6rem .5rem;">Y²</th>
               </tr>
             </thead>
             <tbody id="mobileTableBody"></tbody>
@@ -936,12 +934,6 @@ document.addEventListener('DOMContentLoaded', ()=>runScenario('normal'));
         </div>
       </div>
     </div>
-
-
-
-    </div><!-- /공식 직관적 이해 r div -->
-
-    <!-- 문항 선택 버튼 (모바일 친화) -->
 
 <script>
 function toggleFormulaSection() {
