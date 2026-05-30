@@ -520,7 +520,8 @@ footer span{color:var(--teal2);}
 <section class="sec alt">
   <div class="wrap">
     <div class="sec-title r">📏 상관계수를 사용한 문항변별도(r)</div>
-    <p class="body r" style="margin-bottom:1.3rem;">상하부 지수를 사용한 문항변별도는 정확성 낮은 추정치입니다. 이를 보완한 학생 전원의 응답 데이터를 총점과 연동하여 <strong>"상관계수"로 계산하는 정밀한 방식</strong>을 사용합니다.</p>
+    <p class="body r" style="margin-bottom:.8rem;">상하부 지수를 사용한 문항변별도는 정확성 낮은 추정치입니다. 이를 보완한 학생 전원의 응답 데이터를 총점과 연동하여 <strong>"상관계수"로 계산하는 정밀한 방식</strong>을 사용합니다.</p>
+
     <div class="formula-wrap r">
       <div class="eq-line">
         <span>r =</span>
@@ -532,9 +533,94 @@ footer span{color:var(--teal2);}
       <div class="notes"><span class="hl-pink">N</span>: 총 피험자 수 &nbsp;|&nbsp; <span class="hl-blue">X</span>: 각 피험자의 문항점수 (0 또는 1) &nbsp;|&nbsp; <span class="hl-green">Y</span>: 각 피험자의 시험 총점 &nbsp;|&nbsp; r은 +1.00 ~ −1.00 분포</div>
     </div>
 
+    <!-- 공식 직관적 이해 -->
+    <div class="r" style="margin-top:1.5rem;margin-bottom:1.5rem;">
+
+      <!-- 핵심 질문 -->
+      <div style="background:linear-gradient(135deg,var(--navy),#2a4a7f);border-radius:14px;padding:1.3rem 1.5rem;text-align:center;margin-bottom:1.2rem;">
+        <p style="color:rgba(255,255,255,.6);font-size:.72rem;font-weight:800;letter-spacing:.1em;margin-bottom:.4rem;">💡 공식이 답하는 단 하나의 질문</p>
+        <p style="color:white;font-size:1rem;font-weight:800;line-height:1.6;">"이 문항을 맞힌 사람들이<br>전체 시험도 잘 봤는가?"</p>
+      </div>
+
+      <!-- STEP 카드 — 세로 1열 -->
+      <div style="display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.2rem;">
+
+        <div style="background:white;border-radius:12px;padding:1rem 1.2rem;border:1.5px solid var(--border);display:flex;gap:1rem;align-items:flex-start;">
+          <div style="flex-shrink:0;width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,var(--teal),var(--teal2));display:flex;align-items:center;justify-content:center;flex-direction:column;">
+            <span style="color:white;font-size:.6rem;font-weight:800;opacity:.8;">STEP</span>
+            <span style="color:white;font-size:1.2rem;font-weight:800;line-height:1;">1</span>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:.8rem;font-weight:800;color:var(--navy);margin-bottom:.35rem;">핵심 아이디어 — XY</div>
+            <p style="font-size:.82rem;line-height:1.8;color:var(--soft);">
+              문항 점수(X) × 총점(Y) = <strong style="color:var(--navy);">XY</strong><br>
+              ✅ 맞히면 X=<strong style="color:var(--teal);">1</strong> → XY = 총점 그대로 남음<br>
+              ❌ 틀리면 X=<strong style="color:var(--coral);">0</strong> → XY = <strong style="color:var(--coral);">0 (사라짐)</strong><br>
+              곱하는 순간 틀린 사람은 자동 제외, <strong style="color:var(--navy);">맞힌 사람의 총점만 누적</strong>됩니다.
+            </p>
+          </div>
+        </div>
+
+        <div style="background:white;border-radius:12px;padding:1rem 1.2rem;border:1.5px solid var(--border);display:flex;gap:1rem;align-items:flex-start;">
+          <div style="flex-shrink:0;width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,#845ef7,#c678f5);display:flex;align-items:center;justify-content:center;flex-direction:column;">
+            <span style="color:white;font-size:.6rem;font-weight:800;opacity:.8;">STEP</span>
+            <span style="color:white;font-size:1.2rem;font-weight:800;line-height:1;">2</span>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:.8rem;font-weight:800;color:var(--navy);margin-bottom:.35rem;">분자 — 패턴이 얼마나 뚜렷한가</div>
+            <p style="font-size:.82rem;line-height:1.8;color:var(--soft);">
+              맞힌 사람들의 총점 합이 <strong style="color:var(--navy);">평균 기준보다 얼마나 높은가</strong>를 계산합니다.<br>
+              분자가 <strong style="color:var(--teal);">크다</strong> → 맞힌 사람들의 총점이 높은 패턴 뚜렷 → <strong style="color:var(--teal);">r ↑</strong><br>
+              분자가 <strong style="color:var(--coral);">0에 가깝다</strong> → 맞히든 틀리든 총점이 뒤섞임 → <strong style="color:var(--coral);">r ↓</strong>
+            </p>
+          </div>
+        </div>
+
+        <div style="background:white;border-radius:12px;padding:1rem 1.2rem;border:1.5px solid var(--border);display:flex;gap:1rem;align-items:flex-start;">
+          <div style="flex-shrink:0;width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,#f4a020,var(--yellow));display:flex;align-items:center;justify-content:center;flex-direction:column;">
+            <span style="color:white;font-size:.6rem;font-weight:800;opacity:.8;">STEP</span>
+            <span style="color:var(--navy);font-size:1.2rem;font-weight:800;line-height:1;">3</span>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:.8rem;font-weight:800;color:var(--navy);margin-bottom:.35rem;">분모 — 항상 같은 기준으로 비교</div>
+            <p style="font-size:.82rem;line-height:1.8;color:var(--soft);">
+              분자만 있으면 시험마다, 인원수마다 숫자가 달라서 비교가 불가능합니다.<br>
+              분모로 나눠주면 <strong style="color:var(--navy);">항상 −1 ~ +1 사이</strong>로 맞춰져서 어떤 시험이든, 몇 명이든 <strong style="color:var(--navy);">동일한 기준</strong>으로 비교할 수 있습니다.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- r값 해석 — 가로 3칸 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem;margin-bottom:1.5rem;">
+        <div style="background:rgba(14,165,176,.08);border-radius:12px;padding:.9rem;text-align:center;border:1.5px solid rgba(14,165,176,.25);">
+          <div style="font-size:1.1rem;font-weight:800;color:var(--teal);">r → +1</div>
+          <div style="width:40px;height:2px;background:var(--teal);margin:.4rem auto;border-radius:2px;"></div>
+          <div style="font-size:.76rem;color:var(--soft);line-height:1.6;">맞힌 사람 = 총점도 높음<br><strong style="color:var(--teal);">완벽한 변별 ✅</strong></div>
+        </div>
+        <div style="background:rgba(255,165,0,.08);border-radius:12px;padding:.9rem;text-align:center;border:1.5px solid rgba(255,165,0,.3);">
+          <div style="font-size:1.1rem;font-weight:800;color:#c07020;">r ≈ 0</div>
+          <div style="width:40px;height:2px;background:#c07020;margin:.4rem auto;border-radius:2px;"></div>
+          <div style="font-size:.76rem;color:var(--soft);line-height:1.6;">맞히든 틀리든 뒤섞임<br><strong style="color:#c07020;">변별 안 됨 ⚠️</strong></div>
+        </div>
+        <div style="background:rgba(255,107,107,.08);border-radius:12px;padding:.9rem;text-align:center;border:1.5px solid rgba(255,107,107,.3);">
+          <div style="font-size:1.1rem;font-weight:800;color:var(--coral);">r → −1</div>
+          <div style="width:40px;height:2px;background:var(--coral);margin:.4rem auto;border-radius:2px;"></div>
+          <div style="font-size:.76rem;color:var(--soft);line-height:1.6;">맞힌 사람이 오히려 낮음<br><strong style="color:var(--coral);">문항 오류 의심 ❌</strong></div>
+        </div>
+      </div>
+
+      <!-- 구분선 + 다음 단계 안내 -->
+      <div style="text-align:center;padding:.8rem;background:rgba(14,165,176,.05);border-radius:10px;border:1px dashed rgba(14,165,176,.3);">
+        <p style="font-size:.8rem;font-weight:800;color:var(--teal);">👇 이제 실제 데이터로 직접 확인해보겠습니다</p>
+        <p style="font-size:.76rem;color:var(--soft);margin-top:.2rem;">A~J 버튼으로 문항을 선택하면 해당 문항의 r값이 자동 계산됩니다</p>
+      </div>
+
+    </div>
+
     <!-- 문항 선택 버튼 (모바일 친화) -->
-    <div class="r" style="margin-top:1.4rem;">
-      <p class="body" style="font-size:.78rem;margin-bottom:.7rem;color:var(--teal);font-weight:800;">👆 문항을 선택하면 해당 문항의 r값이 계산됩니다</p>
+    <div class="r" style="margin-top:1.2rem;">
       <div id="colBtns" style="display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem;">
         <span style="font-size:.76rem;font-weight:800;color:var(--soft);align-self:center;margin-right:.2rem;">문항 선택 →</span>
         <button class="col-btn selected" data-col="0">A</button>
@@ -559,13 +645,12 @@ footer span{color:var(--teal2);}
     .col-btn:hover{border-color:var(--teal);background:#edfcfe;color:var(--teal);}
     .col-btn.selected{background:var(--teal);color:white;border-color:var(--teal);
       box-shadow:0 2px 8px rgba(14,165,176,.35);}
-    /* mobile table: show only selected col + fixed cols */
     .dt-col{transition:opacity .2s;}
     .dt-col.hidden{display:none;}
     </style>
 
     <div class="g2 r">
-      <!-- 데이터 테이블 (모바일: 선택 문항만 표시) -->
+      <!-- 데이터 테이블 -->
       <div>
         <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:10px;border:1.5px solid var(--border);">
           <table id="dataTable" style="font-size:.78rem;min-width:0;width:100%;">
@@ -579,12 +664,10 @@ footer span{color:var(--teal2);}
                 <th style="background:#0a6e7c;min-width:34px;">Y²</th>
               </tr>
             </thead>
-            <tbody id="mobileTableBody">
-              <!-- filled by JS -->
-            </tbody>
+            <tbody id="mobileTableBody"></tbody>
           </table>
         </div>
-        <!-- sigma row summary cards -->
+        <!-- sigma 카드 -->
         <div id="sigmaCards" style="display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-top:.6rem;">
           <div style="background:rgba(14,165,176,.08);border-radius:8px;padding:.5rem;text-align:center;">
             <div style="font-size:.65rem;color:var(--soft);font-weight:700;">Σ<span class="hl-blue" style="font-size:.65rem;">X</span></div>
@@ -619,6 +702,231 @@ footer span{color:var(--teal2);}
     </div>
   </div>
 </section>
+
+<!-- 공식 완전 해설 (인터랙티브) -->
+<section class="sec alt">
+  <div class="wrap">
+    <div class="sec-title r">🔬 공식 완전 해설 — 직접 확인해보기</div>
+
+    <style>
+    .scenario-btns{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.2rem;}
+    .sc-btn{padding:.5rem 1rem;border-radius:10px;border:1.5px solid var(--border);
+      background:white;font-size:.78rem;font-weight:800;color:var(--navy);
+      cursor:pointer;transition:all .2s;font-family:inherit;line-height:1.3;text-align:center;}
+    .sc-btn:hover{border-color:var(--teal);background:#edfcfe;}
+    .sc-btn.active{background:var(--teal);color:white;border-color:var(--teal);}
+    .mini-persons{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;margin:1rem 0;}
+    .mini-card{border-radius:10px;padding:.5rem .3rem;text-align:center;
+      border:1.5px solid var(--border);background:white;transition:all .3s;}
+    .mini-card.correct{background:rgba(14,165,176,.12);border-color:var(--teal);}
+    .mini-card.wrong{background:rgba(255,107,107,.1);border-color:#ffb3b3;}
+    .mini-num{font-size:.62rem;color:var(--soft);font-weight:700;}
+    .mini-x{font-size:.95rem;font-weight:800;}
+    .mini-y{font-size:.65rem;color:var(--soft);}
+    .mini-xy{font-size:.65rem;font-weight:800;color:#1255a0;}
+    .formula-steps{display:flex;flex-direction:column;gap:.8rem;}
+    .fstep{border-radius:12px;padding:1rem 1.2rem;border:1.5px solid var(--border);background:white;transition:all .35s;}
+    .fstep-title{font-size:.8rem;font-weight:800;color:var(--navy);margin-bottom:.45rem;display:flex;align-items:center;gap:.4rem;}
+    .fstep-body{font-size:.8rem;line-height:1.85;color:var(--soft);}
+    .fstep-val{font-size:.82rem;font-weight:800;color:var(--teal);margin-top:.35rem;}
+    .fstep.warn .fstep-title{color:#c0392b;}
+    .fstep.warn .fstep-val{color:#c0392b;}
+    .fstep.warn{border-color:#ffb3b3;background:#fff5f5;}
+    .fstep.ok{border-color:rgba(14,165,176,.35);background:rgba(14,165,176,.04);}
+    .r-result-box{border-radius:14px;padding:1.2rem 1.4rem;text-align:center;
+      margin-top:1rem;color:white;transition:all .4s;}
+    .r-result-label{font-size:.72rem;font-weight:800;opacity:.8;margin-bottom:.2rem;}
+    .r-result-num{font-size:2rem;font-weight:800;letter-spacing:-.02em;}
+    .r-result-desc{font-size:.8rem;margin-top:.35rem;opacity:.9;}
+    </style>
+
+    <div class="r">
+      <p class="body" style="margin-bottom:1.1rem;">시나리오를 선택하면 공식의 각 부분이 어떻게 계산되는지 단계별로 확인할 수 있습니다.</p>
+
+      <div class="scenario-btns">
+        <button class="sc-btn active" data-sc="normal">📊 실제 데이터<br>(A문항)</button>
+        <button class="sc-btn" data-sc="allcorrect">🤔 전원 정답이면?</button>
+        <button class="sc-btn" data-sc="allwrong">🤔 전원 오답이면?</button>
+        <button class="sc-btn" data-sc="mixed">🤔 실력과 무관하면?</button>
+      </div>
+
+      <div id="sc-desc" class="info-box" style="margin-bottom:1.2rem;"></div>
+
+      <div class="g2">
+        <div>
+          <span class="label">👥 피험자별 응답</span>
+          <div class="mini-persons" id="miniPersons"></div>
+          <div style="display:flex;gap:1rem;font-size:.73rem;margin-bottom:1rem;">
+            <span><span style="color:var(--teal);font-weight:800;">■</span> 정답(X=1)</span>
+            <span><span style="color:var(--coral);font-weight:800;">■</span> 오답(X=0) → XY=0</span>
+          </div>
+          <span class="label">📐 XY 누적 — X=0이면 총점이 사라집니다</span>
+          <div id="xyViz" style="display:flex;flex-direction:column;gap:.3rem;margin-top:.4rem;"></div>
+        </div>
+
+        <div>
+          <span class="label">🧮 공식 단계별 계산</span>
+          <div class="formula-steps">
+            <div class="fstep" id="fstep-num">
+              <div class="fstep-title">📌 분자: NΣ(XY) − (ΣX)(ΣY)</div>
+              <div class="fstep-body" id="fstep-num-body"></div>
+              <div class="fstep-val" id="fstep-num-val"></div>
+            </div>
+            <div class="fstep" id="fstep-denx">
+              <div class="fstep-title">📌 분모 왼쪽 √: NΣX² − (ΣX)²<br><span style="font-size:.72rem;font-weight:400;color:var(--soft);">문항 점수가 얼마나 퍼져 있는가</span></div>
+              <div class="fstep-body" id="fstep-denx-body"></div>
+              <div class="fstep-val" id="fstep-denx-val"></div>
+            </div>
+            <div class="fstep" id="fstep-deny">
+              <div class="fstep-title">📌 분모 오른쪽 √: NΣY² − (ΣY)²<br><span style="font-size:.72rem;font-weight:400;color:var(--soft);">총점이 얼마나 퍼져 있는가</span></div>
+              <div class="fstep-body" id="fstep-deny-body"></div>
+              <div class="fstep-val" id="fstep-deny-val"></div>
+            </div>
+            <div class="fstep ok">
+              <div class="fstep-title">💡 분모의 역할</div>
+              <div class="fstep-body">분자만 있으면 숫자가 너무 크거나 작아서 비교 불가합니다.<br>분모로 나눠 <strong>−1 ~ +1 사이</strong>로 맞춰주면 어떤 시험이든, 몇 명이든 동일한 기준으로 비교할 수 있습니다.</div>
+            </div>
+          </div>
+          <div class="r-result-box" id="rBox">
+            <div class="r-result-label">최종 r값</div>
+            <div class="r-result-num" id="rNum">—</div>
+            <div class="r-result-desc" id="rDesc">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+const SC_DATA = {
+  normal: {
+    desc: '<strong>📊 실제 데이터 (A문항)</strong><br>10명 중 7명이 A문항을 맞혔고, 맞힌 사람들의 총점이 대체로 높습니다. 정상적인 변별력 있는 문항입니다.',
+    ps: [{x:1,y:10},{x:0,y:6},{x:1,y:3},{x:1,y:6},{x:1,y:7},{x:1,y:8},{x:0,y:4},{x:0,y:2},{x:1,y:5},{x:1,y:9}]
+  },
+  allcorrect: {
+    desc: '<strong>🤔 전원 정답이면?</strong><br>10명 모두 A문항을 맞혔습니다. 모두가 같은 답을 내면 이 문항은 학생들을 전혀 구분하지 못합니다. 분모 왼쪽이 0이 되어 r 계산 자체가 불가능해집니다.',
+    ps: [{x:1,y:10},{x:1,y:6},{x:1,y:3},{x:1,y:6},{x:1,y:7},{x:1,y:8},{x:1,y:4},{x:1,y:2},{x:1,y:5},{x:1,y:9}]
+  },
+  allwrong: {
+    desc: '<strong>🤔 전원 오답이면?</strong><br>10명 모두 A문항을 틀렸습니다. X가 전부 0이므로 XY도 전부 0. 아무도 못 푼 문항도 마찬가지로 학생들을 구분하지 못합니다.',
+    ps: [{x:0,y:10},{x:0,y:6},{x:0,y:3},{x:0,y:6},{x:0,y:7},{x:0,y:8},{x:0,y:4},{x:0,y:2},{x:0,y:5},{x:0,y:9}]
+  },
+  mixed: {
+    desc: '<strong>🤔 실력과 무관하면?</strong><br>맞힌 사람과 틀린 사람의 총점이 완전히 뒤섞여 있습니다. 분자가 0에 가까워지고 r값이 매우 낮게 나옵니다.',
+    ps: [{x:1,y:2},{x:0,y:10},{x:1,y:3},{x:0,y:9},{x:1,y:4},{x:0,y:8},{x:1,y:2},{x:0,y:9},{x:1,y:3},{x:0,y:8}]
+  }
+};
+
+function runScenario(key) {
+  const sc = SC_DATA[key];
+  const ps = sc.ps, N = ps.length;
+  let sX=0,sY=0,sXY=0,sX2=0,sY2=0;
+  ps.forEach(p=>{sX+=p.x;sY+=p.y;sXY+=p.x*p.y;sX2+=p.x*p.x;sY2+=p.y*p.y;});
+
+  const numVal  = N*sXY - sX*sY;
+  const denXval = N*sX2 - sX*sX;
+  const denYval = N*sY2 - sY*sY;
+  const den     = Math.sqrt(denXval) * Math.sqrt(denYval);
+  const r       = den === 0 ? null : numVal / den;
+
+  // 버튼
+  document.querySelectorAll('.sc-btn').forEach(b=>b.classList.toggle('active', b.dataset.sc===key));
+  // 설명
+  document.getElementById('sc-desc').innerHTML = sc.desc;
+
+  // 피험자 카드
+  document.getElementById('miniPersons').innerHTML = ps.map((p,i)=>`
+    <div class="mini-card ${p.x?'correct':'wrong'}">
+      <div class="mini-num">${i+1}번</div>
+      <div class="mini-x ${p.x?'':'w'}">${p.x?'✅':'❌'}</div>
+      <div class="mini-y">총점 ${p.y}</div>
+      <div class="mini-xy">XY=${p.x*p.y}</div>
+    </div>`).join('');
+
+  // XY 시각화
+  const maxY = Math.max(...ps.map(p=>p.y));
+  document.getElementById('xyViz').innerHTML = ps.map((p,i)=>{
+    const xy = p.x*p.y, pct = maxY>0?(xy/maxY*100):0;
+    return `<div style="display:flex;align-items:center;gap:.45rem;">
+      <div style="width:26px;font-size:.68rem;font-weight:800;color:var(--soft);flex-shrink:0;">${i+1}번</div>
+      <div style="font-size:.68rem;width:32px;flex-shrink:0;color:${p.x?'var(--teal)':'var(--coral)'};">X=${p.x}</div>
+      <div style="flex:1;height:15px;background:#e4f4f6;border-radius:4px;overflow:hidden;">
+        <div style="height:100%;width:${pct}%;background:${p.x?'linear-gradient(90deg,var(--teal),var(--teal2))':'#fca5a5'};border-radius:4px;transition:width .55s ease;"></div>
+      </div>
+      <div style="font-size:.68rem;font-weight:800;width:38px;flex-shrink:0;color:${p.x?'#1255a0':'#bbb'};">XY=${xy}</div>
+    </div>`;
+  }).join('') + `
+    <div style="display:flex;align-items:center;gap:.45rem;margin-top:.35rem;padding-top:.35rem;border-top:1.5px solid var(--border);">
+      <div style="width:26px;"></div><div style="width:32px;"></div>
+      <div style="flex:1;font-size:.75rem;font-weight:800;color:var(--navy);">ΣXY 합계</div>
+      <div style="font-size:.8rem;font-weight:800;color:#1255a0;width:38px;">${sXY}</div>
+    </div>`;
+
+  // 분자
+  const nEl = document.getElementById('fstep-num');
+  document.getElementById('fstep-num-body').innerHTML =
+    `N × ΣXY = <strong>${N} × ${sXY} = ${N*sXY}</strong><br>
+     (ΣX) × (ΣY) = <strong>${sX} × ${sY} = ${sX*sY}</strong><br>
+     분자 = ${N*sXY} − ${sX*sY} = <strong>${numVal}</strong>`;
+  document.getElementById('fstep-num-val').textContent =
+    numVal > 5  ? `✅ 분자 = ${numVal} → 맞힌 사람들이 총점도 높은 패턴` :
+    numVal >= 0 ? `⚠️ 분자 = ${numVal} → 맞힌 사람들과 틀린 사람들의 총점이 거의 같음` :
+                  `⚠️ 분자 = ${numVal} → 역패턴 (맞힌 사람이 오히려 총점 낮음)`;
+  nEl.className = `fstep ${Math.abs(numVal) < 5 ? 'warn' : 'ok'}`;
+
+  // 분모 왼쪽
+  const dxEl = document.getElementById('fstep-denx');
+  document.getElementById('fstep-denx-body').innerHTML =
+    `N × ΣX² = <strong>${N} × ${sX2} = ${N*sX2}</strong><br>
+     (ΣX)² = <strong>${sX}² = ${sX*sX}</strong><br>
+     결과 = ${N*sX2} − ${sX*sX} = <strong>${denXval}</strong>`;
+  document.getElementById('fstep-denx-val').textContent =
+    denXval === 0
+      ? `🚨 결과 = 0 → 모두 맞히거나 모두 틀림. r 계산 불가능!`
+      : `✅ √${denXval} ≈ ${Math.sqrt(denXval).toFixed(2)} → 문항 점수가 다양하게 분포`;
+  dxEl.className = `fstep ${denXval === 0 ? 'warn' : 'ok'}`;
+
+  // 분모 오른쪽
+  const dyEl = document.getElementById('fstep-deny');
+  document.getElementById('fstep-deny-body').innerHTML =
+    `N × ΣY² = <strong>${N} × ${sY2} = ${N*sY2}</strong><br>
+     (ΣY)² = <strong>${sY}² = ${sY*sY}</strong><br>
+     결과 = ${N*sY2} − ${sY*sY} = <strong>${denYval}</strong>`;
+  document.getElementById('fstep-deny-val').textContent =
+    denYval === 0
+      ? `🚨 결과 = 0 → 총점이 모두 동일. 변별도 측정 의미 없음!`
+      : `✅ √${denYval} ≈ ${Math.sqrt(denYval).toFixed(2)} → 총점이 다양하게 분포`;
+  dyEl.className = `fstep ${denYval === 0 ? 'warn' : 'ok'}`;
+
+  // 최종 r
+  const rBox = document.getElementById('rBox');
+  const rNum = document.getElementById('rNum');
+  const rDesc = document.getElementById('rDesc');
+  if (r === null) {
+    rBox.style.background = 'linear-gradient(135deg,#c0392b,#e07070)';
+    rNum.textContent  = '계산 불가 ❌';
+    rDesc.textContent = '분모가 0 — 이 문항은 변별 정보를 제공하지 않습니다.';
+  } else {
+    const rf = r.toFixed(2).replace('0.','.').replace('-0.','-.');
+    const a  = Math.abs(r);
+    let lb, col;
+    if(a<.10){lb='변별력이 없는 문항';col='#c0392b';}
+    else if(a<.20){lb='변별력이 매우 낮은 문항';col='#e07030';}
+    else if(a<.30){lb='변별력이 낮은 문항';col='#c08000';}
+    else if(a<.40){lb='변별력이 있는 문항';col='#207040';}
+    else{lb='변별력이 높은 문항';col='#0ea5b0';}
+    rBox.style.background = `linear-gradient(135deg,${col},${col}bb)`;
+    rNum.textContent  = `r = ${rf}`;
+    rDesc.textContent = lb;
+  }
+}
+
+document.querySelectorAll('.sc-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>runScenario(btn.dataset.sc));
+});
+document.addEventListener('DOMContentLoaded', ()=>runScenario('normal'));
+</script>
 
 <!-- 좋은 vs 나쁜 문항 -->
 <section class="sec">
@@ -739,6 +1047,79 @@ footer span{color:var(--teal2);}
           <div class="dist-note">👌 보통의 유혹력</div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- 문항난이도·추측도·오답지매력도 관계 -->
+<section class="sec alt">
+  <div class="wrap">
+    <div class="sec-title r">🔗 세 가지 지표의 관계</div>
+    <div class="r">
+
+      <!-- 출발점 -->
+      <div style="background:linear-gradient(135deg,var(--navy),#2a4a7f);border-radius:14px;padding:1.2rem 1.5rem;text-align:center;margin-bottom:1.2rem;">
+        <p style="color:rgba(255,255,255,.6);font-size:.72rem;font-weight:800;letter-spacing:.1em;margin-bottom:.3rem;">모든 계산의 출발점</p>
+        <p style="color:white;font-size:1rem;font-weight:800;">문항난이도 (P) = 정답률</p>
+        <p style="color:rgba(255,255,255,.65);font-size:.82rem;margin-top:.3rem;">정답자 수 ÷ 전체 인원 &nbsp;|&nbsp; 값이 높을수록 쉬운 문항</p>
+      </div>
+
+      <!-- 화살표 + 파생 카드 -->
+      <div style="display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.2rem;">
+
+        <!-- 오답지 매력도 -->
+        <div style="display:flex;gap:1rem;align-items:flex-start;background:white;border-radius:12px;padding:1rem 1.2rem;border:1.5px solid var(--border);">
+          <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;">
+            <div style="width:2px;height:16px;background:rgba(14,165,176,.3);border-radius:2px;"></div>
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--teal2));display:flex;align-items:center;justify-content:center;font-size:.9rem;">①</div>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:.82rem;font-weight:800;color:var(--navy);margin-bottom:.3rem;">오답지 매력도 P₀ = (1 − P) / (K − 1)</div>
+            <p style="font-size:.8rem;line-height:1.75;color:var(--soft);">
+              <strong style="color:var(--navy);">"오답지가 적절히 유혹하고 있는가?"</strong><br>
+              정답을 못 맞힌 나머지 사람들이 각 오답지에 골고루 나뉘어야 한다는 기준값입니다.<br>
+              <span style="color:var(--teal);font-weight:800;">예)</span> P=0.45, 4지선다 → P₀ = (1−0.45)÷3 = <strong style="color:var(--navy);">0.18</strong> → 각 오답지가 약 18%씩 선택되면 적절
+            </p>
+          </div>
+        </div>
+
+        <!-- 문항추측도 -->
+        <div style="display:flex;gap:1rem;align-items:flex-start;background:white;border-radius:12px;padding:1rem 1.2rem;border:1.5px solid var(--border);">
+          <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;">
+            <div style="width:2px;height:16px;background:rgba(132,94,247,.3);border-radius:2px;"></div>
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#845ef7,#c678f5);display:flex;align-items:center;justify-content:center;font-size:.9rem;color:white;">②</div>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:.82rem;font-weight:800;color:var(--navy);margin-bottom:.3rem;">문항추측도 P_GR = (W ÷ (K−1)) ÷ N</div>
+            <p style="font-size:.8rem;line-height:1.75;color:var(--soft);">
+              <strong style="color:var(--navy);">"찍어서 맞힐 확률이 얼마인가?"</strong><br>
+              틀린 사람들(W) 기준으로 계산합니다. P가 낮을수록(어려울수록) 오답자가 많아져 추측도가 높아질 수 있습니다.<br>
+              <span style="color:#845ef7;font-weight:800;">예)</span> 오답자 3명, 5지선다, 10명 → P_GR = (3÷4)÷10 = <strong style="color:var(--navy);">0.075</strong>
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 핵심 차이 요약 -->
+      <div style="background:rgba(14,165,176,.06);border-radius:12px;padding:1rem 1.2rem;border:1px solid rgba(14,165,176,.2);">
+        <p style="font-size:.78rem;font-weight:800;color:var(--teal);margin-bottom:.6rem;">📌 한눈에 비교</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;text-align:center;">
+          <div>
+            <div style="font-size:.72rem;font-weight:800;color:var(--navy);margin-bottom:.3rem;">문항난이도 P</div>
+            <div style="font-size:.75rem;color:var(--soft);line-height:1.6;">몇 명이 맞혔는가<br><strong style="color:var(--navy);">전체 기준</strong></div>
+          </div>
+          <div style="border-left:1px solid var(--border);border-right:1px solid var(--border);">
+            <div style="font-size:.72rem;font-weight:800;color:var(--teal);margin-bottom:.3rem;">오답지 매력도 P₀</div>
+            <div style="font-size:.75rem;color:var(--soft);line-height:1.6;">오답이 잘 만들어졌는가<br><strong style="color:var(--teal);">P를 기반으로 계산</strong></div>
+          </div>
+          <div>
+            <div style="font-size:.72rem;font-weight:800;color:#845ef7;margin-bottom:.3rem;">문항추측도 P_GR</div>
+            <div style="font-size:.75rem;color:var(--soft);line-height:1.6;">운으로 맞힐 가능성<br><strong style="color:#845ef7;">틀린 사람 기준</strong></div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
